@@ -1,0 +1,38 @@
+{
+  "name": "yokesh-auto-mobiles",
+  "version": "1.0.0",
+  "description": "Yokesh Auto Mobiles - Car Mechanical Shop & Car Wash Website in Chennai",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'No build step required - static site'",
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "car-mechanic",
+    "car-wash",
+    "chennai",
+    "automotive",
+    "static-site"
+  ],
+  "author": "Yokesh Auto Mobiles",
+  "license": "MIT",
+  "devDependencies": {
+    "vercel": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=18.x"
+  },
+  "main": "script.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sUrey621/YokeshAutoMobiles.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/sUrey621/YokeshAutoMobiles/issues"
+  },
+  "homepage": "https://github.com/sUrey621/YokeshAutoMobiles#readme",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}
