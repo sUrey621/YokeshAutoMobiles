@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yokesh Auto Mobiles - Expert Car Mechanical & Car Wash Services in Chennai</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Wrench shape -->
+                    <defs>
+                        <linearGradient id="wrenchGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#dc0000;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#a30000;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <!-- Wrench handle -->
+                    <rect x="45" y="10" width="10" height="60" rx="2" fill="url(#wrenchGradient)"/>
+                    <!-- Wrench jaw -->
+                    <path d="M20 25 L30 25 L35 20 L35 15 L40 10 L45 10 L45 25 L55 25 L55 10 L60 10 L65 15 L65 20 L70 25 L80 25 L80 35 L70 35 L70 30 L65 30 L65 45 L60 50 L55 50 L55 30 L45 30 L45 50 L40 50 L35 45 L35 30 L30 30 L30 35 L20 35 Z"
+                          fill="url(#wrenchGradient)" stroke="#000" stroke-width="1"/>
+                </svg>
+                <span class="logo-text">Yokesh Auto Mobiles</span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#water-wash">Water Wash</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Expert Car Care & Water Wash Services</h1>
+            <p>Professional mechanical repairs, maintenance, and premium car washing in Chennai</p>
+            <div class="hero-buttons">
+                <a href="#services" class="btn btn-primary">Our Services</a>
+                <a href="#contact" class="btn btn-secondary">Book Appointment</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <h3>10+</h3>
+                    <p>Years Experience</p>
+                </div>
+                <div class="stat">
+                    <h3>500+</h3>
+                    <p>Cars Serviced</p>
+                </div>
+                <div class="stat">
+                    <h3>100%</h3>
+                    <p>Customer Satisfaction</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Mechanical Services</h2>
+                <p>Comprehensive car care from certified mechanics</p>
+            </div>
+            <div class="services-grid">
+                <!-- Oil Change -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-oil-can"></i>
+                    </div>
+                    <h3>Oil Change & Filter</h3>
+                    <p>Regular oil changes with high-quality synthetic or conventional oil and filter replacement.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Synthetic & Conventional</li>
+                        <li><i class="fas fa-check"></i> 10-Min Service</li>
+                        <li><i class="fas fa-check"></i> Free Multi-Point Inspection</li>
+                    </ul>
+                </div>
+
+                <!-- Brake Service -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-compact-disc"></i>
+                    </div>
+                    <h3>Brake Repair & Service</h3>
+                    <p>Complete brake system inspection, pad replacement, rotor resurfacing, and fluid flush.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Pad & Rotor Replacement</li>
+                        <li><i class="fas fa-check"></i> Brake Fluid Flush</li>
+                        <li><i class="fas fa-check"></i> ABS Diagnostics</li>
+                        <li><i class="fas fa-check"></i> Caliper Service</li>
+                    </ul>
+                </div>
+
+                <!-- Engine Diagnostics -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-diagnoses"></i>
+                    </div>
+                    <h3>Engine Diagnostics</h3>
+                    <p>Advanced computer diagnostics to identify engine problems and performance issues.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> OBD-II Scanner</li>
+                        <li><i class="fas fa-check"></i> Computer Diagnostics</li>
+                        <li><i class="fas fa-check"></i> Performance Tuning</li>
+                        <li><i class="fas fa-check"></i> Check Engine Light</li>
+                    </ul>
+                </div>
+
+                <!-- Transmission -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>Transmission Service</h3>
+                    <p>Manual and automatic transmission repair, fluid changes, and complete rebuilds.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Fluid Service</li>
+                        <li><i class="fas fa-check"></i> Clutch Replacement</li>
+                        <li><i class="fas fa-check"></i> Solenoid Repair</li>
+                        <li><i class="fas fa-check"></i> Full Rebuilds</li>
+                    </ul>
+                </div>
+
+                <!-- Suspension -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-car-battery"></i>
+                    </div>
+                    <h3>Suspension & Steering</h3>
+                    <p>Shocks, struts, tie rods, control arms, and complete alignment services.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Shocks & Struts</li>
+                        <li><i class="fas fa-check"></i> Wheel Alignment</li>
+                        <li><i class="fas fa-check"></i> Steering Components</li>
+                        <li><i class="fas fa-check"></i> Suspension Tune-up</li>
+                    </ul>
+                </div>
+
+                <!-- Battery & Electrical -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Battery & Electrical</h3>
+                    <p>Battery testing/replacement, alternator repair, starter service, and electrical diagnostics.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Battery Testing</li>
+                        <li><i class="fas fa-check"></i> Alternator Repair</li>
+                        <li><i class="fas fa-check"></i> Starter Service</li>
+                        <li><i class="fas fa-check"></i> Wiring & Sensors</li>
+                    </ul>
+                </div>
+
+                <!-- AC Service -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-snowflake"></i>
+                    </div>
+                    <h3>AC Service & Repair</h3>
+                    <p>Air conditioning recharge, compressor repair, and climate control system maintenance.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> System Recharge</li>
+                        <li><i class="fas fa-check"></i> Compressor Repair</li>
+                        <li><i class="fas fa-check"></i> Leak Detection</li>
+                        <li><i class="fas fa-check"></i> Cabin Filter</li>
+                    </ul>
+                </div>
+
+                <!-- Tire Services -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tire"></i>
+                    </div>
+                    <h3>Tire Services</h3>
+                    <p>Tire rotation, balancing, replacement, and puncture repair.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Tire Rotation</li>
+                        <li><i class="fas fa-check"></i> Wheel Balancing</li>
+                        <li><i class="fas fa-check"></i> Flat Repair</li>
+                        <li><i class="fas fa-check"></i> New Tires</li>
+                    </ul>
+                </div>
+
+                <!-- General Repair -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>General Repair</h3>
+                    <p>Comprehensive mechanical repairs for all makes and models.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> All Makes & Models</li>
+                        <li><i class="fas fa-check"></i> Certified Mechanics</li>
+                        <li><i class="fas fa-check"></i> Warranty on Parts</li>
+                        <li><i class="fas fa-check"></i> Transparent Pricing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Water Wash Section -->
+    <section class="water-wash" id="water-wash">
+        <div class="container">
+            <div class="section-header light">
+                <h2>Premium Water Wash</h2>
+                <p>Give your car a showroom shine with our professional detailing services. Get 15% OFF on all wash packages!</p>
+            </div>
+            <div class="wash-grid">
+                <!-- Basic Wash -->
+                <div class="wash-card">
+                    <div class="wash-badge">Popular</div>
+                    <div class="wash-icon">
+                        <i class="fas fa-shower"></i>
+                    </div>
+                    <h3>Express Wash</h3>
+                    <div class="price">
+                        <span class="currency">₹</span>
+                        <span class="amount">799</span>
+                        <span class="period">incl. tax</span>
+                    </div>
+                    <ul class="wash-features">
+                        <li><i class="fas fa-check-circle"></i> Pre-soak & Foam</li>
+                        <li><i class="fas fa-check-circle"></i> High-Pressure Rinse</li>
+                        <li><i class="fas fa-check-circle"></i> Soap & Scrub</li>
+                        <li><i class="fas fa-check-circle"></i> Spot-Free Rinse</li>
+                        <li><i class="fas fa-check-circle"></i> Quick Dry</li>
+                        <li class="disabled"><i class="fas fa-times-circle"></i> Interior Vacuum</li>
+                        <li class="disabled"><i class="fas fa-times-circle"></i> Wax</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline">Book Now</a>
+                </div>
+
+                <!-- Deluxe Wash -->
+                <div class="wash-card featured">
+                    <div class="wash-badge">15% OFF</div>
+                    <div class="wash-icon">
+                        <i class="fas fa-spray-can-sparkles"></i>
+                    </div>
+                    <h3>Deluxe Wash</h3>
+                    <div class="price">
+                        <span class="currency">₹</span>
+                        <span class="amount">399</span>
+                        <span class="period">+tax</span>
+                    </div>
+                    <ul class="wash-features">
+                        <li><i class="fas fa-check-circle"></i> Everything in Express</li>
+                        <li><i class="fas fa-check-circle"></i> Interior Vacuum</li>
+                        <li><i class="fas fa-check-circle"></i> Dashboard & Console</li>
+                        <li><i class="fas fa-check-circle"></i> Window Cleaning (Inside & Out)</li>
+                        <li><i class="fas fa-check-circle"></i> Door Jambs Cleaned</li>
+                        <li><i class="fas fa-check-circle"></i> Tire Shine</li>
+                        <li><i class="fas fa-check-circle"></i> Quick Wax</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Book Now</a>
+                </div>
+
+                <!-- Premium Detail -->
+                <div class="wash-card">
+                    <div class="wash-badge">Ultimate</div>
+                    <div class="wash-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3>Premium Detail</h3>
+                    <div class="price">
+                        <span class="currency">₹</span>
+                        <span class="amount">1200</span>
+                        <span class="period">incl. tax</span>
+                    </div>
+                    <ul class="wash-features">
+                        <li><i class="fas fa-check-circle"></i> Everything in Deluxe</li>
+                        <li><i class="fas fa-check-circle"></i> Full Hand Wash</li>
+                        <li><i class="fas fa-check-circle"></i> Clay Bar Treatment</li>
+                        <li><i class="fas fa-check-circle"></i> Machine Polish</li>
+                        <li><i class="fas fa-check-circle"></i> Paint Sealant</li>
+                        <li><i class="fas fa-check-circle"></i> Leather Conditioning</li>
+                        <li><i class="fas fa-check-circle"></i> Engine Bay Wash</li>
+                        <li><i class="fas fa-check-circle"></i> Wheel Decontamination</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline">Book Now</a>
+                </div>
+
+                <!-- Additional Wash Services -->
+                <div class="wash-card">
+                    <div class="wash-icon">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <h3>Add-On Services</h3>
+                    <div class="price">
+                        <span class="currency">From</span>
+                        <span class="amount">199</span>
+                        <span class="period">each</span>
+                    </div>
+                    <ul class="wash-features">
+                        <li><i class="fas fa-check-circle"></i> Undercarriage Wash - ₹299</li>
+                        <li><i class="fas fa-check-circle"></i> Engine Wash - ₹499</li>
+                        <li><i class="fas fa-check-circle"></i> Headlight Restoration - ₹799</li>
+                        <li><i class="fas fa-check-circle"></i> Pet Hair Removal - ₹399</li>
+                        <li><i class="fas fa-check-circle"></i> Odor Treatment - ₹499</li>
+                        <li><i class="fas fa-check-circle"></i> Ceramic Coating - ₹2999</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline">Select Options</a>
+                </div>
+            </div>
+
+            <div class="wash-info">
+                <div class="info-card">
+                    <i class="fas fa-clock"></i>
+                    <h4>Hours</h4>
+                    <p>Mon-Sat: 9:30AM - 7:00PM<br>Sunday: Closed</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-tint"></i>
+                    <h4>Water-Saving Tech</h4>
+                    <p>We use 80% less water with our advanced water reclamation system</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-leaf"></i>
+                    <h4>Eco-Friendly</h4>
+                    <p>Biodegradable soaps and environmentally safe products</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Packages -->
+    <section class="packages" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2>Maintenance Packages</h2>
+                <p>Save with our bundled service packages</p>
+            </div>
+            <div class="packages-grid">
+                <div class="package-card">
+                    <div class="package-header">
+                        <h3>Basic Care</h3>
+                        <p>Essential maintenance</p>
+                    </div>
+                    <div class="price">
+                        <span class="amount">1499</span>
+                        <span class="period">/year</span>
+                    </div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> 3 Oil Changes</li>
+                        <li><i class="fas fa-check"></i> Tire Rotation (x2)</li>
+                        <li><i class="fas fa-check"></i> Multi-Point Inspection (x4)</li>
+                        <li><i class="fas fa-check"></i> Brake Inspection</li>
+                        <li><i class="fas fa-check"></i> Battery Check</li>
+                        <li><i class="fas fa-check"></i> Fluid Top-Off</li>
+                        <li class="disabled"><i class="fas fa-times"></i> 10% Off Repairs</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Priority Scheduling</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline">Choose Plan</a>
+                </div>
+
+                <div class="package-card featured">
+                    <div class="package-badge">Most Popular</div>
+                    <div class="package-header">
+                        <h3>Premium Care</h3>
+                        <p>Complete vehicle maintenance</p>
+                    </div>
+                    <div class="price">
+                        <span class="amount">3999</span>
+                        <span class="period">/year</span>
+                    </div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> Unlimited Oil Changes</li>
+                        <li><i class="fas fa-check"></i> Tire Rotation (Unlimited)</li>
+                        <li><i class="fas fa-check"></i> Full Inspections (x6)</li>
+                        <li><i class="fas fa-check"></i> Brake Service (1x)</li>
+                        <li><i class="fas fa-check"></i> Transmission Service</li>
+                        <li><i class="fas fa-check"></i> AC Service</li>
+                        <li><i class="fas fa-check"></i> 15% Off Repairs</li>
+                        <li><i class="fas fa-check"></i> Priority Scheduling</li>
+                        <li><i class="fas fa-check"></i> Free Towing (20mi)</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Choose Plan</a>
+                </div>
+
+                <div class="package-card">
+                    <div class="package-header">
+                        <h3>Fleet Care</h3>
+                        <p>For businesses & fleets</p>
+                    </div>
+                    <div class="price">
+                        <span class="amount">Custom</span>
+                    </div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> Everything in Premium</li>
+                        <li><i class="fas fa-check"></i> Account Manager</li>
+                        <li><i class="fas fa-check"></i> Monthly Fleet Reports</li>
+                        <li><i class="fas fa-check"></i> Scheduled Maintenance</li>
+                        <li><i class="fas fa-check"></i> Mobile Service</li>
+                        <li><i class="fas fa-check"></i> Bulk Discounts</li>
+                        <li><i class="fas fa-check"></i> 24/7 Hotline</li>
+                        <li><i class="fas fa-check"></i> Custom Billing</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Why Choose Yokesh Auto Mobiles?</h2>
+                    <p class="lead">Over 10 years of trusted automotive service in Chennai. Our expert mechanics combine skill with integrity to keep your vehicle running safely and reliably.</p>
+
+                    <div class="feature-list">
+                        <div class="feature-text">
+                            <p>At Yokesh Auto Mobiles, we are committed to delivering top-quality car care with reliability and professionalism. Our experienced technicians use advanced tools and genuine spare parts to ensure your vehicle performs at its best. We prioritize customer satisfaction by offering transparent pricing, timely service, and personalized attention to every vehicle.</p>
+                            <p>Whether it's routine maintenance, diagnostics, or major repairs, Yokesh Auto Mobiles provides efficient and trustworthy solutions. With a focus on quality workmanship and long-term performance, we make sure your car stays safe, smooth, and road-ready at all times.</p>
+                            <p><strong>Choose Yokesh Auto Mobiles for dependable service, expert care, and peace of mind every time you drive.</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-car-side"></i>
+                        <p>Professional Service</p>
+                    </div>
+                    <div class="experience-badge">
+                        <span class="years">15+</span>
+                        <span class="text">Years of<br>Excellence</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="certifications">
+                <h3>Certifications & Partners</h3>
+                <div class="cert-logos">
+                    <div class="cert-logo"><i class="fas fa-certificate"></i><span>ASE Certified</span></div>
+                    <div class="cert-logo"><i class="fas fa-oil-can"></i><span>Castrol Partner</span></div>
+                    <div class="cert-logo"><i class="fas fa-shield-alt"></i><span>BBB A+ Rated</span></div>
+                    <div class="cert-logo"><i class="fas fa-fire"></i><span>NAPA AutoCare</span></div>
+                    <div class="cert-logo"><i class="fas fa-leaf"></i><span>Eco-Friendly</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Find Us</h2>
+                <p>Visit our workshop in Pallikaranai, Chennai</p>
+            </div>
+            <div class="map-wrapper">
+                <div class="map-container">
+                    <!-- Embedded Google Map -->
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.50123456789!2d80.1969!3d12.9650!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5266f4e6c6e5e5%3A0x8e8e8e8e8e8e8e8e!2sYokesh%20Auto%20Mobiles%2C%20No%2049%2C%20Gopal%20Nagar%2C%20Ponniyamman%20Kovil%202nd%20Cross%20St%2C%20Narayanapuram%2C%20Pallikaranai%2C%20Chennai%2C%20Tamil%20Nadu%20600100!5e0!3m2!1sen!2sin!4v1712475600000!5m2!1sen!2sin"
+                        width="100%"
+                        height="450"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Yokesh Auto Mobiles Location - Pallikaranai, Chennai">
+                    </iframe>
+                </div>
+                <div class="map-info">
+                    <h3>Yokesh Auto Mobiles</h3>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Address</strong>
+                            <p>No 49, Gopal Nagar,<br>Ponniyamman Kovil 2nd Cross St,<br>Narayanapuram, Pallikaranai,<br>Chennai - 600100</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <strong>Phone</strong>
+                            <p><a href="tel:+919003244967">+91 9003244967</a></p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email</strong>
+                            <p><a href="mailto:yokeshautomobiles@gmail.com">yokeshautomobiles@gmail.com</a></p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <strong>Business Hours</strong>
+                            <p>Monday - Saturday<br>9:30 AM - 7:00 PM<br>Sunday: Closed</p>
+                        </div>
+                    </div>
+                    <a href="https://maps.app.goo.gl/7L9iEZqBrGjBYF5R7" target="_blank" class="btn btn-primary btn-full directions-btn">
+                        <i class="fas fa-directions"></i>
+                        Get Directions
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Our Customers Say</h2>
+                <p>Real reviews from satisfied customers</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Best mechanic shop I've ever been to. They actually fixed the problem and didn't try to upsell me on unnecessary services."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JD</div>
+                        <div class="author-info">
+                            <h4>Rajesh Kumar</h4>
+                            <span>Hyundai Owner</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"The water wash is worth every penny. My car looks brand new again. The staff is professional and friendly."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SM</div>
+                        <div class="author-info">
+                            <h4>Priya Sharma</h4>
+                            <span>BMW Owner</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"I've been bringing my cars here for 5 years. Always honest, fast, and great prices. The premium package saves me money."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MR</div>
+                        <div class="author-info">
+                            <h4>Arjun Reddy</h4>
+                            <span>Fleet Manager</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <h2>Get In Touch</h2>
+                    <p>Book an appointment or request a quote. We'll get back to you within 1 hour.</p>
+
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Address</h4>
+                                <p>No 49, Gopal Nagar, Ponniyamman Kovil 2nd Cross St,<br>Narayanapuram, Pallikaranai, Chennai<br>Tamil Nadu 600100, India</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <div>
+                                <h4>Phone</h4>
+                                <p><a href="tel:+919003244967">+91 9003244967</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email</h4>
+                                <p><a href="mailto:yokeshautomobiles@gmail.com">yokeshautomobiles@gmail.com</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h4>Business Hours</h4>
+                                <p>Monday: 9:30 AM - 7:00 PM<br>Tuesday-Saturday: 9:30 AM - 7:00 PM<br>Sunday: Closed</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/share/1CaH3dyZbx/" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.instagram.com/yokeshautomobiles?igsh=MW8yOTEzNTVrdmRtZQ==" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-google"></i></a>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper">
+                    <h3>Book Appointment</h3>
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Full Name *</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="vehicle">Vehicle (Year, Make, Model) *</label>
+                                <input type="text" id="vehicle" name="vehicle" placeholder="e.g., 2020 Toyota Camry" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="service">Service Needed *</label>
+                            <select id="service" name="service" required>
+                                <option value="">Select a service...</option>
+                                <optgroup label="Mechanical Services">
+                                    <option value="oil-change">Oil Change & Filter</option>
+                                    <option value="brake-service">Brake Repair & Service</option>
+                                    <option value="engine-diagnostics">Engine Diagnostics</option>
+                                    <option value="transmission">Transmission Service</option>
+                                    <option value="suspension">Suspension & Steering</option>
+                                    <option value="battery-electrical">Battery & Electrical</option>
+                                    <option value="ac-service">AC Service & Repair</option>
+                                    <option value="tire-services">Tire Services</option>
+                                    <option value="general-repair">General Repair</option>
+                                </optgroup>
+                                <optgroup label="Water Wash Services">
+                                    <option value="express-wash">Express Wash (₹799)</option>
+                                    <option value="deluxe-wash">Deluxe Wash (₹999)</option>
+                                    <option value="premium-detail">Premium Detail (₹1200)</option>
+                                </optgroup>
+                                <optgroup label="Maintenance Packages">
+                                    <option value="basic-care">Basic Care Package</option>
+                                    <option value="premium-care">Premium Care Package</option>
+                                    <option value="fleet-care">Fleet Care (Custom)</option>
+                                </optgroup>
+                                <option value="other">Other / Multiple Services</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message / Additional Details</label>
+                            <textarea id="message" name="message" rows="4" placeholder="Describe your issue or specific requirements..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="appointment-date">Preferred Appointment Date</label>
+                            <input type="date" id="appointment-date" name="appointment_date">
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="newsletter" name="newsletter">
+                                <span>Subscribe to our newsletter for tips & offers</span>
+                            </label>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="contact-consent" name="contact_consent" required>
+                                <span>I agree to be contacted regarding my inquiry *</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <span>Request Appointment</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+                    <div id="formMessage" class="form-message"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="wrenchGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#dc0000;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#a30000;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="45" y="10" width="10" height="60" rx="2" fill="url(#wrenchGradient2)"/>
+                            <path d="M20 25 L30 25 L35 20 L35 15 L40 10 L45 10 L45 25 L55 25 L55 10 L60 10 L65 15 L65 20 L70 25 L80 25 L80 35 L70 35 L70 30 L65 30 L65 45 L60 50 L55 50 L55 30 L45 30 L45 50 L40 50 L35 45 L35 30 L30 30 L30 35 L20 35 Z"
+                                  fill="url(#wrenchGradient2)" stroke="#000" stroke-width="1"/>
+                        </svg>
+                        <span class="footer-logo-text">Yokesh Auto Mobiles</span>
+                    </div>
+                    <p>Your trusted partner for professional car maintenance and premium car wash services in Chennai. Quality you can trust.</p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/share/1CaH3dyZbx/" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.instagram.com/yokeshautomobiles?igsh=MW8yOTEzNTVrdmRtZQ==" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-google"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Mechanical Services</a></li>
+                        <li><a href="#water-wash">Water Wash</a></li>
+                        <li><a href="#pricing">Packages & Pricing</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#services">Oil Change</a></li>
+                        <li><a href="#services">Brake Service</a></li>
+                        <li><a href="#services">Engine Repair</a></li>
+                        <li><a href="#services">Transmission</a></li>
+                        <li><a href="#services">AC Service</a></li>
+                        <li><a href="#water-wash">Car Wash</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Info</h4>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt"></i> No 49, Gopal Nagar, Ponniyamman Kovil 2nd Cross St, Narayanapuram, Pallikaranai, Chennai - 600100</p>
+                        <p><i class="fas fa-phone-alt"></i> +91 9003244967</p>
+                        <p><i class="fas fa-envelope"></i> yokeshautomobiles@gmail.com</p>
+                        <p><i class="fas fa-clock"></i> Mon-Sat: 8AM - 6PM</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Yokesh Auto Mobiles. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Appointment Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon success">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Appointment Requested!</h3>
+            <p>Thank you for choosing Yokesh Auto Mobiles. We'll confirm your appointment within 1 hour.</p>
+            <button class="btn btn-primary" onclick="closeModal()">OK</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
