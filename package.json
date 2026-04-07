@@ -33,6 +33,7 @@
   },
   "homepage": "https://github.com/sUrey621/YokeshAutoMobiles#readme",
   "dependencies": {
-    "@vercel/analytics": "^2.0.1"
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/edge-config": "^1.4.3"
   }
 }
