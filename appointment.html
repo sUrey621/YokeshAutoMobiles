@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0, user-scalable=yes">
+    <meta name="description" content="Book an appointment at Yokesh Auto Mobiles - Professional car mechanical and car wash services in Chennai">
+    <meta name="theme-color" content="#dc0000">
+    <title>Book Appointment - Yokesh Auto Mobiles</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .appointment-hero {
+            background: linear-gradient(135deg, #000000, #1a1a1a);
+            color: white;
+            padding: 120px 20px 60px;
+            text-align: center;
+            min-height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .appointment-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-family: 'Bebas Neue', cursive;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(220, 0, 0, 0.5);
+        }
+
+        .appointment-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .breadcrumb {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .breadcrumb a {
+            color: #dc0000;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .appointment-hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="wrenchGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#dc0000;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#a30000;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <rect x="45" y="10" width="10" height="60" rx="2" fill="url(#wrenchGradient3)"/>
+                    <path d="M20 25 L30 25 L35 20 L35 15 L40 10 L45 10 L45 25 L55 25 L55 10 L60 10 L65 15 L65 20 L70 25 L80 25 L80 35 L70 35 L70 30 L65 30 L65 45 L60 50 L55 50 L55 30 L45 30 L45 50 L40 50 L35 45 L35 30 L30 30 L30 35 L20 35 Z"
+                          fill="url(#wrenchGradient3)" stroke="#000" stroke-width="1"/>
+                </svg>
+                <span class="logo-text">Yokesh Auto Mobiles</span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#water-wash">Water Wash</a></li>
+                <li><a href="index.html#pricing">Pricing</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="appointment.html" class="active">Book Now</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Appointment Hero -->
+    <section class="appointment-hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Book Appointment</h1>
+            <p>Schedule your car service or wash in just a few minutes. We'll confirm within 1 hour.</p>
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> &gt; Book Appointment
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="contact" id="appointment">
+        <div class="container">
+            <div class="contact-wrapper" style="grid-template-columns: 1fr;">
+                <div class="contact-form-wrapper" style="max-width: 800px; margin: 0 auto;">
+                    <h3><i class="fas fa-calendar-alt"></i> Book Your Appointment</h3>
+                    <p style="text-align: center; margin-bottom: 30px; color: var(--text-medium);">
+                        Fill in your details and we'll get back to you within 1 hour to confirm your appointment.
+                    </p>
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Full Name *</label>
+                                <input type="text" id="name" name="name" required placeholder="Enter your name">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" required placeholder="+91 9003244967">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required placeholder="your@email.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="vehicle">Vehicle (Year, Make, Model) *</label>
+                                <input type="text" id="vehicle" name="vehicle" placeholder="e.g., 2020 Toyota Camry" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="service">Service Needed *</label>
+                            <select id="service" name="service" required>
+                                <option value="">Select a service...</option>
+                                <optgroup label="Mechanical Services">
+                                    <option value="oil-change">Oil Change & Filter</option>
+                                    <option value="brake-service">Brake Repair & Service</option>
+                                    <option value="engine-diagnostics">Engine Diagnostics</option>
+                                    <option value="transmission">Transmission Service</option>
+                                    <option value="suspension">Suspension & Steering</option>
+                                    <option value="battery-electrical">Battery & Electrical</option>
+                                    <option value="ac-service">AC Service & Repair</option>
+                                    <option value="tire-services">Tire Services</option>
+                                    <option value="general-repair">General Repair</option>
+                                </optgroup>
+                                <optgroup label="Water Wash Services">
+                                    <option value="express-wash">Express Wash (₹799)</option>
+                                    <option value="deluxe-wash">Deluxe Wash (₹999 +tax)</option>
+                                    <option value="premium-detail">Premium Detail (₹1200 incl. tax)</option>
+                                </optgroup>
+                                <optgroup label="Maintenance Packages">
+                                    <option value="basic-care">Basic Care Package (₹1499/year)</option>
+                                    <option value="premium-care">Premium Care Package (₹3999/year)</option>
+                                    <option value="fleet-care">Fleet Care (Custom)</option>
+                                </optgroup>
+                                <option value="other">Other / Multiple Services</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message / Additional Details</label>
+                            <textarea id="message" name="message" rows="4" placeholder="Describe your issue, preferred time, or specific requirements..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="appointment-date">Preferred Appointment Date *</label>
+                            <input type="date" id="appointment-date" name="appointment_date" required>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="newsletter" name="newsletter">
+                                <span>Subscribe to our newsletter for tips & offers</span>
+                            </label>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="contact-consent" name="contact_consent" required>
+                                <span>I agree to be contacted regarding my appointment *</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <span>Request Appointment</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+                    <div id="formMessage" class="form-message"></div>
+
+                    <div style="margin-top: 40px; padding: 25px; background: rgba(220, 0, 0, 0.05); border-radius: 12px; border-left: 4px solid #dc0000;">
+                        <h4><i class="fas fa-info-circle" style="color: #dc0000;"></i> Quick Contact</h4>
+                        <p style="margin-bottom: 10px;"><strong>Phone:</strong> <a href="tel:+919003244967" style="color: #dc0000;">+91 9003244967</a></p>
+                        <p style="margin-bottom: 0;"><strong>Email:</strong> <a href="mailto:yokeshautomobiles@gmail.com" style="color: #dc0000;">yokeshautomobiles@gmail.com</a></p>
+                        <p style="margin-top: 10px; margin-bottom: 0; color: var(--text-medium); font-size: 0.9rem;">
+                            <i class="fas fa-clock"></i> Mon-Sat: 9:30 AM - 7:00 PM, Sunday: Closed
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="wrenchGradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#dc0000;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#a30000;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="45" y="10" width="10" height="60" rx="2" fill="url(#wrenchGradient4)"/>
+                            <path d="M20 25 L30 25 L35 20 L35 15 L40 10 L45 10 L45 25 L55 25 L55 10 L60 10 L65 15 L65 20 L70 25 L80 25 L80 35 L70 35 L70 30 L65 30 L65 45 L60 50 L55 50 L55 30 L45 30 L45 50 L40 50 L35 45 L35 30 L30 30 L30 35 L20 35 Z"
+                                  fill="url(#wrenchGradient4)" stroke="#000" stroke-width="1"/>
+                        </svg>
+                        <span class="footer-logo-text">Yokesh Auto Mobiles</span>
+                    </div>
+                    <p>Your trusted partner for professional car maintenance and premium car wash services in Chennai. Quality you can trust.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#services">Mechanical Services</a></li>
+                        <li><a href="index.html#water-wash">Water Wash</a></li>
+                        <li><a href="index.html#pricing">Packages & Pricing</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="appointment.html">Book Appointment</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html#services">Oil Change</a></li>
+                        <li><a href="index.html#services">Brake Service</a></li>
+                        <li><a href="index.html#services">Engine Repair</a></li>
+                        <li><a href="index.html#services">Transmission</a></li>
+                        <li><a href="index.html#services">AC Service</a></li>
+                        <li><a href="index.html#water-wash">Car Wash</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Info</h4>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt"></i> No 49, Gopal Nagar, Ponniyamman Kovil 2nd Cross St, Narayanapuram, Pallikaranai, Chennai - 600100</p>
+                        <p><i class="fas fa-phone-alt"></i> <a href="tel:+919003244967">+91 9003244967</a></p>
+                        <p><i class="fas fa-envelope"></i> <a href="mailto:yokeshautomobiles@gmail.com">yokeshautomobiles@gmail.com</a></p>
+                        <p><i class="fas fa-clock"></i> Mon-Sat: 9:30 AM - 7:00 PM<br>Sunday: Closed</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Yokesh Auto Mobiles. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Vercel Analytics -->
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('Service Worker registered:', registration);
+            })
+            .catch((error) => {
+              console.log('Service Worker registration failed:', error);
+            });
+        });
+      }
+    </script>
+
+    <!-- Form Handler -->
+    <script>
+        const appointmentForm = document.getElementById('contactForm');
+        const formMessage = document.getElementById('formMessage');
+
+        // Set minimum appointment date to today
+        const dateInput = document.getElementById('appointment-date');
+        if (dateInput) {
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.setAttribute('min', today);
+        }
+
+        // Phone number formatting
+        const phoneInput = document.getElementById('phone');
+        if (phoneInput) {
+            phoneInput.addEventListener('input', (e) => {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 10) {
+                    value = value.substring(0, 10);
+                }
+                if (value.length >= 6) {
+                    value = `(${value.substring(0,3)}) ${value.substring(3,6)}-${value.substring(6)}`;
+                } else if (value.length >= 3) {
+                    value = `(${value.substring(0,3)}) ${value.substring(3)}`;
+                }
+                e.target.value = value;
+            });
+        }
+
+        // Form submission
+        appointmentForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(appointmentForm);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                vehicle: formData.get('vehicle'),
+                service: formData.get('service'),
+                message: formData.get('message'),
+                appointment_date: formData.get('appointment_date'),
+                newsletter: formData.get('newsletter') === 'on',
+                contact_consent: formData.get('contact_consent') === 'on'
+            };
+
+            if (!data.name || !data.email || !data.phone || !data.vehicle || !data.service || !data.appointment_date) {
+                showMessage('Please fill in all required fields.', 'error');
+                return;
+            }
+
+            if (!data.contact_consent) {
+                showMessage('You must agree to be contacted regarding your appointment.', 'error');
+                return;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(data.email)) {
+                showMessage('Please enter a valid email address.', 'error');
+                return;
+            }
+
+            const submitBtn = appointmentForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+            try {
+                await simulateAppointmentSubmission(data);
+                showMessage('', 'clear');
+                appointmentForm.reset();
+                showSuccessModal();
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+            } catch (error) {
+                showMessage('An error occurred. Please try again or call us directly.', 'error');
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+            }
+        });
+
+        function simulateAppointmentSubmission(data) {
+            return new Promise((resolve, reject) => {
+                console.log('Appointment booked:', data);
+                setTimeout(() => {
+                    const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+                    appointments.push({
+                        ...data,
+                        timestamp: new Date().toISOString(),
+                        id: Date.now(),
+                        status: 'pending'
+                    });
+                    localStorage.setItem('appointments', JSON.stringify(appointments));
+                    resolve({ success: true });
+                }, 2000);
+            });
+        }
+
+        function showMessage(message, type) {
+            formMessage.textContent = message;
+            formMessage.className = 'form-message ' + type;
+            if (type !== 'clear') {
+                setTimeout(() => {
+                    formMessage.className = 'form-message';
+                }, 5000);
+            }
+        }
+
+        function showSuccessModal() {
+            const modal = document.createElement('div');
+            modal.className = 'modal active';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-icon success">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Appointment Requested!</h3>
+                    <p>Thank you for choosing Yokesh Auto Mobiles. We'll confirm your appointment within 1 hour.</p>
+                    <button class="btn btn-primary" onclick="this.closest('.modal').remove()">OK</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // Mobile navigation
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        hamburger?.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

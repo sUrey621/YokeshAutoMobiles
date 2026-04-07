@@ -16,16 +16,12 @@
     {
       "src": "*.md",
       "use": "@vercel/static"
-    }
-  ],
-  "routes": [
+    },
     {
-      "src": "/(.*)",
-      "dest": "/$1"
+      "src": "*.json",
+      "use": "@vercel/static"
     }
   ],
-  "functions": {},
-  "regions": ["iad1"],
   "cleanUrls": true,
   "trailingSlash": false
 }

@@ -31,3 +31,5 @@ build/
 # Backup files
 *.bak
 *.backup
+
+.vercel
