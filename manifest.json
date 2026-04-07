@@ -1,0 +1,22 @@
+{
+  "name": "Yokesh Auto Mobiles",
+  "short_name": "Yokesh Auto",
+  "description": "Professional car mechanical and car wash services in Chennai - Pallikaranai",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#dc0000",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPHJlY3Qgd2lkdGg9IjE5MiIgZmlsbD0iI2RjMDAwMCIgaGVpZ2h0PSIxOTIiIHJ4PSIxMCIvgogIDx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQGV4YW1wbGUiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+WnVrZSBBdG8gRW50cm9sdXM8L3RleHQ+CiAgPHBhdGggZD0iTTQ4IDEzMCBRMzYuOTg3IDE0NS4yOCAyOCAyMzUgTDI4IDM5NiBRMzYuOTg3IDQ3OS41OCA0OCA1MTIgSDU5IEg2MCBRNjMuMTI3IDQ3OS41OCA4MiAzOTYgTDgyIDIzNSBRNjMuMTI3IDE0NS4yOCA1OSAxMzAgTDQ4IDEzMCBaIiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC44Ii8+CiAgPHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIxOTIiIHJ4PSIxMCIvPgo8L3N2Zz4=",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDkyIiBoZWlnaHQ9IjQ5MiIgdmlld0JveD0iMCAwIDQ5MiA0OTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPHJlY3Qgd2lkdGg9IjQ5MiIgZmlsbD0iI2RjMDAwMCIgaGVpZ2h0PSI0OTIiIHJ4PSIxMCIvPgogIDx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQGV4YW1wbGUiIGZvbnQtc2l6ZT0iMzYiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+WnVrZSBBdG8gRW50cm9sdXM8L3RleHQ+CiAgPHBhdGggZD0iTTE0OCAzMjUgUTI4LjU4MyAzNjQuNTIgNDYgMzk2IEw0NiA2MjAgUTI4LjU4MyA4MzUuNDggMTQ4IDg3MSBMNTAgODcxIFE2My4xMjcgODM1LjQ4IDc4IDYyMCBMNzggMzk2IFE2My4xMjcgMzY0LjUyIDUwIDMyNSBMNDggMzI1IFoiIGZpbGw9IndoaXRlIiBvcGFjaXR5PSIwLjgiLz4KICA8cmVjdCB3aWR0aD0iNDkyIiBoZWlnaHQ9IjQ5MiIgcng9IjEwIi8+Cjwvc3ZnPg==",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}

@@ -2,7 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0, user-scalable=yes">
+    <meta name="description" content="Yokesh Auto Mobiles - Professional car mechanical repair and water wash services in Pallikaranai, Chennai. Book appointment for oil change, brake service, engine repair, car wash packages. Call +91 9003244967">
+    <meta name="keywords" content="car service Chennai, car mechanic Pallikaranai, car wash Chennai, auto repair Tamil Nadu, Yokesh Auto Mobiles">
+    <meta name="author" content="Yokesh Auto Mobiles">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yokeshautomobiles.com/">
+    <meta property="og:title" content="Yokesh Auto Mobiles - Car Service & Wash in Chennai">
+    <meta property="og:description" content="Professional car mechanical repair and water wash services in Pallikaranai, Chennai. Quality service at affordable prices.">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630/dc0000/ffffff?text=Yokesh+Auto+Mobiles">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://yokeshautomobiles.com/">
+    <meta property="twitter:title" content="Yokesh Auto Mobiles - Car Service & Wash in Chennai">
+    <meta property="twitter:description" content="Professional car mechanical repair and water wash services in Pallikaranai, Chennai.">
+
+    <!-- Mobile PWA / Theme Color -->
+    <meta name="theme-color" content="#dc0000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Yokesh Auto">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23dc0000' width='192' height='192'/><text x='50%' y='50%' font-size='80' text-anchor='middle' dy='.3em' fill='white'>🔧</text></svg>">
+
     <title>Yokesh Auto Mobiles - Expert Car Mechanical & Car Wash Services in Chennai</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -804,10 +835,32 @@
     </div>
 
     <script src="script.js"></script>
+
     <!-- Vercel Analytics -->
     <script>
       window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('Service Worker registered:', registration);
+            })
+            .catch((error) => {
+              console.log('Service Worker registration failed:', error);
+            });
+        });
+      }
+    </script>
+
+    <!-- Mobile Floating Call Button -->
+    <a href="tel:+919003244967" class="mobile-cta" aria-label="Call Now">
+        <i class="fas fa-phone-alt"></i>
+        <span>Call Now</span>
+    </a>
 </body>
 </html>
