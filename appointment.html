@@ -282,6 +282,18 @@
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
 
+    <!-- Supabase Client (for database) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- EmailJS (for email notifications) -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+    <!-- Configuration -->
+    <script src="config.js"></script>
+
+    <!-- Appointment Handler (supports Google Sheets, EmailJS, Supabase) -->
+    <script src="appointment-handler.js"></script>
+
     <!-- Service Worker Registration -->
     <script>
       if ('serviceWorker' in navigator) {
@@ -326,7 +338,7 @@
             });
         }
 
-        // Form submission
+        // Form submission using AppointmentHandler
         appointmentForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
@@ -345,18 +357,18 @@
 
             if (!data.name || !data.email || !data.phone || !data.vehicle || !data.service || !data.appointment_date) {
                 showMessage('Please fill in all required fields.', 'error');
-                return;
+                return false;
             }
 
             if (!data.contact_consent) {
                 showMessage('You must agree to be contacted regarding your appointment.', 'error');
-                return;
+                return false;
             }
 
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(data.email)) {
                 showMessage('Please enter a valid email address.', 'error');
-                return;
+                return false;
             }
 
             const submitBtn = appointmentForm.querySelector('button[type="submit"]');
@@ -365,35 +377,34 @@
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
 
             try {
-                await simulateAppointmentSubmission(data);
-                showMessage('', 'clear');
-                appointmentForm.reset();
-                showSuccessModal();
+                // Use AppointmentHandler to save to all configured systems
+                const handler = new AppointmentHandler();
+                const result = await handler.submitAppointment(formData);
+
+                if (result.success) {
+                    console.log('Appointment saved to:', result.systems.join(', '));
+                    if (result.errors.length > 0) {
+                        console.warn('Some systems failed:', result.errors);
+                    }
+
+                    showMessage('', 'clear');
+                    appointmentForm.reset();
+                    showSuccessModal();
+                } else {
+                    throw new Error('All systems failed to save');
+                }
+
                 submitBtn.innerHTML = originalBtnText;
                 submitBtn.disabled = false;
+                return true;
             } catch (error) {
+                console.error('Submission error:', error);
                 showMessage('An error occurred. Please try again or call us directly.', 'error');
                 submitBtn.innerHTML = originalBtnText;
                 submitBtn.disabled = false;
+                return false;
             }
         });
-
-        function simulateAppointmentSubmission(data) {
-            return new Promise((resolve, reject) => {
-                console.log('Appointment booked:', data);
-                setTimeout(() => {
-                    const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
-                    appointments.push({
-                        ...data,
-                        timestamp: new Date().toISOString(),
-                        id: Date.now(),
-                        status: 'pending'
-                    });
-                    localStorage.setItem('appointments', JSON.stringify(appointments));
-                    resolve({ success: true });
-                }, 2000);
-            });
-        }
 
         function showMessage(message, type) {
             formMessage.textContent = message;

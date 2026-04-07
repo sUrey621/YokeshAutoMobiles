@@ -1,0 +1,78 @@
+/**
+ * Yokesh Auto Mobiles - Appointment System Configuration
+ *
+ * This file contains configuration for 3 appointment tracking systems:
+ * 1. Google Sheets
+ * 2. EmailJS (Email notifications)
+ * 3. Supabase (Database + Admin Dashboard)
+ *
+ * IMPORTANT: Replace the placeholder values with your actual credentials!
+ */
+
+// ============================================
+// GOOGLE SHEETS CONFIGURATION
+// ============================================
+const GOOGLE_CONFIG = {
+    // The URL of your Google Apps Script web app deployment
+    // See: SETUP_GOOGLE_SHEETS.md for instructions
+    SHEETS_WEBAPP_URL: 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE',
+
+    // Optional: Sheet name (default is "Appointments")
+    SHEET_NAME: 'Appointments'
+};
+
+// ============================================
+// EMAILJS CONFIGURATION
+// ============================================
+const EMAILJS_CONFIG = {
+    // Get these from https://dashboard.emailjs.com/
+    SERVICE_ID: 'YOUR_EMAILJS_SERVICE_ID',
+    TEMPLATE_ID: 'YOUR_EMAILJS_TEMPLATE_ID',
+    PUBLIC_KEY: 'YOUR_EMAILJS_PUBLIC_KEY',
+
+    // Email addresses
+    RECEIVER_EMAIL: 'yokeshautomobiles@gmail.com', // Your email
+    ADMIN_EMAIL: 'yokeshautomobiles@gmail.com'
+};
+
+// ============================================
+// SUPABASE CONFIGURATION
+// ============================================
+const SUPABASE_CONFIG = {
+    // Get these from your Supabase project settings
+    URL: 'YOUR_SUPABASE_PROJECT_URL', // e.g., https://abcde.supabase.co
+    ANON_PUBLIC_KEY: 'YOUR_SUPABASE_ANON_PUBLIC_KEY',
+
+    // Table name (will be created automatically)
+    TABLE_NAME: 'appointments',
+
+    // Admin credentials for dashboard (simple password protection)
+    ADMIN_PASSWORD: 'YOUR_ADMIN_PASSWORD', // Change this!
+    ADMIN_EMAIL: 'yokeshautomobiles@gmail.com'
+};
+
+// ============================================
+// SETTINGS
+// ============================================
+const SETTINGS = {
+    // Which systems to use? (set to true/false)
+    USE_GOOGLE_SHEETS: true,
+    USE_EMAILJS: true,
+    USE_SUPABASE: true,
+
+    // Fallback: If primary method fails, try others?
+    FALLBACK_ENABLED: true,
+
+    // Log to console for debugging (set to false in production)
+    DEBUG: false
+};
+
+// Export for use in other files
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        GOOGLE_CONFIG,
+        EMAILJS_CONFIG,
+        SUPABASE_CONFIG,
+        SETTINGS
+    };
+}

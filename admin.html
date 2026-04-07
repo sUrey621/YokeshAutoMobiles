@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Yokesh Auto Mobiles</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #f5f5f5;
+        }
+
+        .admin-login {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .admin-login h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #dc0000;
+            font-family: 'Bebas Neue', cursive;
+            letter-spacing: 2px;
+        }
+
+        .admin-login p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .admin-login input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .admin-login button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #dc0000, #a30000);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .admin-login button:hover {
+            background: linear-gradient(135deg, #a30000, #dc0000);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(220, 0, 0, 0.3);
+        }
+
+        #loginError {
+            color: #dc0000;
+            margin-top: 10px;
+            text-align: center;
+            display: none;
+        }
+
+        .admin-dashboard {
+            display: none;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, #000000, #1a1a1a);
+            color: white;
+            padding: 30px 20px;
+            margin: -20px -20px 30px;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .dashboard-header h1 {
+            margin: 0 0 10px 0;
+            font-family: 'Bebas Neue', cursive;
+            letter-spacing: 2px;
+            font-size: 2rem;
+        }
+
+        .dashboard-header p {
+            margin: 0;
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        .btn-logout {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            float: right;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .btn-logout:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            text-align: center;
+            border-top: 4px solid #dc0000;
+        }
+
+        .stat-card h3 {
+            font-size: 2.5rem;
+            color: #dc0000;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .stat-card p {
+            margin: 0;
+            color: #666;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .export-btn {
+            background: linear-gradient(135deg, #28a745, #1e7e34);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px;
+        }
+
+        th {
+            background: linear-gradient(135deg, #dc0000, #a30000);
+            color: white;
+            font-weight: 600;
+            padding: 15px;
+            text-align: left;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 14px 15px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.95rem;
+        }
+
+        tr:hover {
+            background: #fafafa;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: capitalize;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-confirmed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-action {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-confirm {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-confirm:hover {
+            background: #218838;
+        }
+
+        .btn-cancel {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background: #c82333;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .empty-state h3 {
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .last-updated {
+            text-align: center;
+            margin-top: 20px;
+            color: #999;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-header h1 {
+                font-size: 1.5rem;
+            }
+
+            table {
+                font-size: 0.85rem;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Form -->
+    <div class="admin-login" id="loginForm">
+        <h2>🔐 Admin Login</h2>
+        <p>Enter password to view appointments</p>
+        <input type="password" id="adminPassword" placeholder="Enter admin password" autofocus>
+        <button onclick="login()">Login</button>
+        <p id="loginError" style="color: #dc0000; margin-top: 10px; text-align: center; display: none;">
+            ⚠️ Incorrect password
+        </p>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="admin-dashboard" id="dashboard">
+        <div class="dashboard-header">
+            <button class="btn-logout" onclick="logout()">🚪 Logout</button>
+            <h1>📋 Appointment Dashboard</h1>
+            <p>Yokesh Auto Mobiles - Manage All Bookings</p>
+        </div>
+
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3 id="totalCount">0</h3>
+                    <p>Total Appointments</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="pendingCount">0</h3>
+                    <p>⏳ Pending</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="confirmedCount">0</h3>
+                    <p>✅ Confirmed</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="cancelledCount">0</h3>
+                    <p>❌ Cancelled</p>
+                </div>
+            </div>
+
+            <button class="export-btn" onclick="exportToCSV()">
+                📥 Export to CSV
+            </button>
+
+            <div class="table-container">
+                <table id="appointmentsTable">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Vehicle</th>
+                            <th>Service</th>
+                            <th>Preferred Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <tr>
+                            <td colspan="9">
+                                <div class="loading">⏳ Loading appointments...</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="emptyState" class="empty-state" style="display: none;">
+                    <i>📭</i>
+                    <h3>No Appointments Yet</h3>
+                    <p> appointments will appear here once customers start booking.</p>
+                </div>
+            </div>
+
+            <p class="last-updated" id="lastUpdated"></p>
+        </div>
+    </div>
+
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        // Configuration - Update these values!
+        const CONFIG = {
+            SUPABASE: {
+                URL: 'YOUR_SUPABASE_URL_HERE', // Replace after setup
+                ANON_PUBLIC_KEY: 'YOUR_SUPABASE_ANON_KEY_HERE' // Replace after setup
+            },
+            ADMIN: {
+                PASSWORD: 'YOUR_ADMIN_PASSWORD_HERE' // Change this!
+            }
+        };
+
+        let supabase = null;
+
+        // Login function
+        function login() {
+            const password = document.getElementById('adminPassword').value;
+
+            if (password === CONFIG.ADMIN.PASSWORD) {
+                localStorage.setItem('adminLoggedIn', 'true');
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+
+                // Initialize Supabase and load data
+                initSupabase();
+                loadAppointments();
+            } else {
+                const errorEl = document.getElementById('loginError');
+                errorEl.style.display = 'block';
+                setTimeout(() => {
+                    errorEl.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('adminLoggedIn');
+            location.reload();
+        }
+
+        // Check if already logged in
+        if (localStorage.getItem('adminLoggedIn') === 'true') {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            initSupabase();
+            loadAppointments();
+        }
+
+        // Initialize Supabase
+        function initSupabase() {
+            if (CONFIG.SUPABASE.URL && CONFIG.SUPABASE.ANON_PUBLIC_KEY) {
+                supabase = window.supabase.createClient(
+                    CONFIG.SUPABASE.URL,
+                    CONFIG.SUPABASE.ANON_PUBLIC_KEY
+                );
+            } else {
+                console.error('Supabase credentials not configured!');
+                alert('⚠️ Supabase not configured. Please edit admin.html and add your credentials.');
+            }
+        }
+
+        // Load appointments from Supabase
+        async function loadAppointments() {
+            if (!supabase) return;
+
+            try {
+                const { data, error } = await supabase
+                    .from('appointments')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                updateStats(data);
+                renderTable(data);
+                updateLastUpdatedTime();
+
+            } catch (error) {
+                console.error('Error loading appointments:', error);
+                alert('Failed to load appointments. Please check console for details.');
+            }
+        }
+
+        function updateStats(appointments) {
+            const total = appointments.length;
+            const pending = appointments.filter(a => a.status === 'pending').length;
+            const confirmed = appointments.filter(a => a.status === 'confirmed').length;
+            const cancelled = appointments.filter(a => a.status === 'cancelled').length;
+
+            document.getElementById('totalCount').textContent = total;
+            document.getElementById('pendingCount').textContent = pending;
+            document.getElementById('confirmedCount').textContent = confirmed;
+            document.getElementById('cancelledCount').textContent = cancelled;
+        }
+
+        function renderTable(appointments) {
+            const tbody = document.getElementById('tableBody');
+
+            if (appointments.length === 0) {
+                document.getElementById('emptyState').style.display = 'block';
+                tbody.innerHTML = '';
+                return;
+            }
+
+            document.getElementById('emptyState').style.display = 'none';
+
+            tbody.innerHTML = appointments.map(apt => {
+                const date = new Date(apt.appointment_date).toLocaleDateString('en-IN', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric'
+                });
+                const createdAt = new Date(apt.created_at).toLocaleString('en-IN', {
+                    day: 'numeric',
+                    month: 'short',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                const statusClass = `status-${apt.status || 'pending'}`;
+
+                return `
+                    <tr>
+                        <td>${createdAt}</td>
+                        <td><strong>${escapeHtml(apt.name)}</strong></td>
+                        <td>${escapeHtml(apt.email)}</td>
+                        <td><a href="tel:${escapeHtml(apt.phone)}">${escapeHtml(apt.phone)}</a></td>
+                        <td>${escapeHtml(apt.vehicle)}</td>
+                        <td>${escapeHtml(apt.service)}</td>
+                        <td>${date}</td>
+                        <td><span class="status-badge ${statusClass}">${apt.status || 'pending'}</span></td>
+                        <td>
+                            <div class="action-btns">
+                                <button class="btn-action btn-confirm" onclick="updateStatus('${apt.id}', 'confirmed')" title="Confirm">
+                                    ✓
+                                </button>
+                                <button class="btn-action btn-cancel" onclick="updateStatus('${apt.id}', 'cancelled')" title="Cancel">
+                                    ✗
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        async function updateStatus(id, status) {
+            if (!supabase) return;
+
+            const { error } = await supabase
+                .from('appointments')
+                .update({ status })
+                .eq('id', id);
+
+            if (error) {
+                alert('Failed to update status: ' + error.message);
+            } else {
+                loadAppointments();
+            }
+        }
+
+        function updateLastUpdatedTime() {
+            const now = new Date();
+            document.getElementById('lastUpdated').textContent =
+                `Last updated: ${now.toLocaleTimeString('en-IN')}`;
+        }
+
+        function exportToCSV() {
+            const table = document.getElementById('appointmentsTable');
+            const rows = table.querySelectorAll('tr');
+            const csv = [];
+
+            // Headers
+            const headers = Array.from(rows[0].querySelectorAll('th')).map(th =>
+                `"${th.textContent.trim().replace(/"/g, '""')}"`
+            );
+            csv.push(headers.join(','));
+
+            // Data rows
+            rows.forEach((row, index) => {
+                if (index === 0) return; // Skip header row
+                const cols = row.querySelectorAll('td');
+                const rowData = Array.from(cols).slice(0, 7).map(col => {
+                    // Remove action buttons from export
+                    let text = col.textContent.trim();
+                    // Skip action buttons column
+                    if (col.querySelector('.action-btns')) return null;
+                    return `"${text.replace(/"/g, '""')}"`;
+                }).filter(val => val !== null);
+
+                if (rowData.length > 0) {
+                    csv.push(rowData.join(','));
+                }
+            });
+
+            const csvContent = 'data:text/csv;charset=utf-8,' + csv.join('\n');
+            const link = document.createElement('a');
+            link.href = encodeURI(csvContent);
+            link.download = `yokesh_auto_appointments_${new Date().toISOString().split('T')[0]}.csv`;
+            link.click();
+        }
+
+        // Auto-refresh every 30 seconds
+        setInterval(() => {
+            if (localStorage.getItem('adminLoggedIn') === 'true') {
+                loadAppointments();
+            }
+        }, 30000);
+    </script>
+</body>
+</html>
