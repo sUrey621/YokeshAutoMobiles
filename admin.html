@@ -316,7 +316,7 @@
     <div class="admin-login" id="loginForm">
         <h2>🔐 Admin Login</h2>
         <p>Enter password to view appointments</p>
-        <input type="password" id="adminPassword" placeholder="Enter password " autofocus>
+        <input type="password" id="adminPassword" placeholder="Enter password" autofocus>
         <button onclick="login()">Login</button>
         <p id="loginError" style="color: #dc0000; margin-top: 10px; text-align: center; display: none;">
             ⚠️ Incorrect password
@@ -404,7 +404,8 @@
             }
         };
 
-        let supabase = null;
+        // Use window.supabase directly (don't redeclare)
+        let supabaseClient = null;
 
         // Login function
         function login() {
@@ -443,7 +444,7 @@
         // Initialize Supabase
         function initSupabase() {
             if (CONFIG.SUPABASE.URL && CONFIG.SUPABASE.ANON_PUBLIC_KEY) {
-                supabase = window.supabase.createClient(
+                supabaseClient = window.supabase.createClient(
                     CONFIG.SUPABASE.URL,
                     CONFIG.SUPABASE.ANON_PUBLIC_KEY
                 );
@@ -455,7 +456,7 @@
 
         // Load appointments from Supabase
         async function loadAppointments() {
-            if (!supabase) return;
+            if (!supabaseClient) return;
 
             try {
                 const { data, error } = await supabase
@@ -545,9 +546,9 @@
         }
 
         async function updateStatus(id, status) {
-            if (!supabase) return;
+            if (!supabaseClient) return;
 
-            const { error } = await supabase
+            const { error } = await supabaseClient
                 .from('appointments')
                 .update({ status })
                 .eq('id', id);
