@@ -459,7 +459,7 @@
             if (!supabaseClient) return;
 
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('appointments')
                     .select('*')
                     .order('created_at', { ascending: false });
