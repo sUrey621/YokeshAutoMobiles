@@ -33,7 +33,7 @@ This guide will help you set up Google Sheets to automatically receive and store
    - Execute as: **Me** (your email)
    - Who has access: **Anyone** (for form submissions)
 7. Click **Deploy**
-8. Copy the **Web App URL** (looks like: `https://script.google.com/macros/s/.../exec`)
+8. Copy the **Web App URL** (looks like: `https://script.google.com/macros/s/AKfycbxtYwJkxGihOGcUFIexC_FxcFuibRLsBHdOEWQpLMG9PkO_mq0RSMjoc8VX8nj8Al6X/exec`)
 9. Paste this URL in `config.js` → `GOOGLE_CONFIG.SHEETS_WEBAPP_URL`
 
 ## 📤 **Step 3: Test the Integration**
