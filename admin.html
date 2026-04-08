@@ -524,6 +524,7 @@
                         <td>${date}</td>
                         <td><span class="status-badge ${statusClass}">${apt.status || 'pending'}</span></td>
                         <td>
+                            ${apt.status === 'pending' ? `
                             <div class="action-btns">
                                 <button class="btn-action btn-confirm" onclick="updateStatus('${apt.id}', 'confirmed')" title="Confirm">
                                     ✓
@@ -532,6 +533,7 @@
                                     ✗
                                 </button>
                             </div>
+                            ` : '<span class="status-action">—</span>'}
                         </td>
                     </tr>
                 `;
