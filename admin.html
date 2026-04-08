@@ -315,11 +315,12 @@
     <!-- Login Form -->
     <div class="admin-login" id="loginForm">
         <h2>🔐 Admin Login</h2>
-        <p>Enter password to view appointments</p>
-        <input type="password" id="adminPassword" placeholder="Enter password" autofocus>
+        <p>Enter credentials to view appointments</p>
+        <input type="text" id="adminUsername" placeholder="Username" autofocus>
+        <input type="password" id="adminPassword" placeholder="Password">
         <button onclick="login()">Login</button>
         <p id="loginError" style="color: #dc0000; margin-top: 10px; text-align: center; display: none;">
-            ⚠️ Incorrect password
+            ⚠️ Invalid username or password
         </p>
     </div>
 
@@ -400,19 +401,37 @@
                 ANON_PUBLIC_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFhandhYWF6dmF0aXlhbm1rYWljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU1NzI5MDIsImV4cCI6MjA5MTE0ODkwMn0.SOknp-GR2HtmS3DfWFHqmrupt3Io7IAxDE8r6aJD5Jc' // Replace after setup
             },
             ADMIN: {
-                PASSWORD: 'Surey@56' // Change this!
+                USERNAME: 'yokesh_admin',
+                PASSWORD: 'Yokesh@2024' // Change this!
             }
         };
 
         // Use window.supabase directly (don't redeclare)
         let supabaseClient = null;
 
+        // Check if admin is authenticated (with 24-hour expiry)
+        function isAdminAuthenticated() {
+            const isAuth = sessionStorage.getItem('adminAuthenticated') === 'true';
+            const loginTime = sessionStorage.getItem('adminLoginTime');
+            if (isAuth && loginTime) {
+                const hoursSinceLogin = (Date.now() - parseInt(loginTime)) / (1000 * 60 * 60);
+                if (hoursSinceLogin > 24) {
+                    sessionStorage.removeItem('adminAuthenticated');
+                    sessionStorage.removeItem('adminLoginTime');
+                    return false;
+                }
+            }
+            return isAuth;
+        }
+
         // Login function
         function login() {
+            const username = document.getElementById('adminUsername').value.trim();
             const password = document.getElementById('adminPassword').value;
 
-            if (password === CONFIG.ADMIN.PASSWORD) {
-                localStorage.setItem('adminLoggedIn', 'true');
+            if (username === CONFIG.ADMIN.USERNAME && password === CONFIG.ADMIN.PASSWORD) {
+                sessionStorage.setItem('adminAuthenticated', 'true');
+                sessionStorage.setItem('adminLoginTime', Date.now());
                 document.getElementById('loginForm').style.display = 'none';
                 document.getElementById('dashboard').style.display = 'block';
 
@@ -429,12 +448,13 @@
         }
 
         function logout() {
-            localStorage.removeItem('adminLoggedIn');
+            sessionStorage.removeItem('adminAuthenticated');
+            sessionStorage.removeItem('adminLoginTime');
             location.reload();
         }
 
         // Check if already logged in
-        if (localStorage.getItem('adminLoggedIn') === 'true') {
+        if (isAdminAuthenticated()) {
             document.getElementById('loginForm').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
             initSupabase();
@@ -605,7 +625,7 @@
 
         // Auto-refresh every 30 seconds
         setInterval(() => {
-            if (localStorage.getItem('adminLoggedIn') === 'true') {
+            if (sessionStorage.getItem('adminAuthenticated') === 'true') {
                 loadAppointments();
             }
         }, 30000);

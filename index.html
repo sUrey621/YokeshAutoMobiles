@@ -63,12 +63,13 @@
                 <span class="logo-text">Yokesh Auto Mobiles</span>
             </div>
             <ul class="nav-menu" id="navMenu">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#water-wash">Water Wash</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="/index.html#home">Home</a></li>
+                <li><a href="/index.html#services">Services</a></li>
+                <li><a href="/index.html#water-wash">Water Wash</a></li>
+                <li><a href="/index.html#pricing">Pricing</a></li>
+                <li><a href="/index.html#about">About Us</a></li>
+                <li><a href="/index.html#contact">Contact</a></li>
+                <li><a href="/admin.html" target="_blank">Admin</a></li>
             </ul>
             <div class="hamburger" id="hamburger">
                 <span></span>
@@ -85,7 +86,7 @@
             <h1>Expert Car Care & Water Wash Services</h1>
             <p>Professional mechanical repairs, maintenance, and premium car washing in Chennai</p>
             <div class="hero-buttons">
-                <a href="#services" class="btn btn-primary">Our Services</a>
+                <a href="/index.html#services" class="btn btn-primary">Our Services</a>
                 <a href="/appointment.html" class="btn btn-secondary">Book Appointment</a>
             </div>
             <div class="hero-stats">
@@ -752,6 +753,34 @@
         </div>
     </section>
 
+    <!-- Admin Login Modal -->
+    <div id="adminLoginModal" class="modal">
+        <div class="modal-content modal-login">
+            <div class="modal-icon">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <h3>Admin Login</h3>
+            <p style="text-align: center; color: var(--text-medium); margin-bottom: 20px;">
+                Enter credentials to access admin panel
+            </p>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="admin-username">Username</label>
+                    <input type="text" id="admin-username" name="username" required placeholder="Enter username" autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="admin-password">Password</label>
+                    <input type="password" id="admin-password" name="password" required placeholder="Enter password" autocomplete="current-password">
+                </div>
+                <div id="adminLoginMessage" class="form-message" style="margin-bottom: 15px;"></div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeAdminModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -782,12 +811,12 @@
                 <div class="footer-col">
                     <h4>Quick Links</h4>
                     <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#services">Mechanical Services</a></li>
-                        <li><a href="#water-wash">Water Wash</a></li>
-                        <li><a href="#pricing">Packages & Pricing</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="/index.html#home">Home</a></li>
+                        <li><a href="/index.html#services">Mechanical Services</a></li>
+                        <li><a href="/index.html#water-wash">Water Wash</a></li>
+                        <li><a href="/index.html#pricing">Packages & Pricing</a></li>
+                        <li><a href="/index.html#about">About Us</a></li>
+                        <li><a href="/index.html#contact">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">

@@ -4,6 +4,9 @@ const navMenu = document.getElementById('navMenu');
 const contactForm = document.getElementById('contactForm');
 const formMessage = document.getElementById('formMessage');
 const successModal = document.getElementById('successModal');
+const adminLoginModal = document.getElementById('adminLoginModal');
+const adminLoginForm = document.getElementById('adminLoginForm');
+const adminLoginMessage = document.getElementById('adminLoginMessage');
 
 // Mobile Navigation Toggle
 hamburger.addEventListener('click', () => {
@@ -365,6 +368,123 @@ darkModeStyles.textContent = `
     }
 `;
 document.head.appendChild(darkModeStyles);
+
+// ============================================
+// Admin Authentication
+// ============================================
+
+// Admin credentials (in production, this would be server-side)
+const ADMIN_CREDENTIALS = {
+    username: 'yokesh_admin',
+    password: 'Yokesh@2024'
+};
+
+// Open admin login modal
+function openAdminModal() {
+    if (adminLoginModal) {
+        adminLoginMessage.textContent = '';
+        adminLoginMessage.className = 'form-message';
+        document.getElementById('admin-username').value = '';
+        document.getElementById('admin-password').value = '';
+        adminLoginModal.classList.add('active');
+    }
+}
+
+// Close admin modal
+function closeAdminModal() {
+    if (adminLoginModal) {
+        adminLoginModal.classList.remove('active');
+    }
+}
+
+// Close admin modal on outside click
+if (adminLoginModal) {
+    adminLoginModal.addEventListener('click', (e) => {
+        if (e.target === adminLoginModal) {
+            closeAdminModal();
+        }
+    });
+}
+
+// Close admin modal on Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && adminLoginModal && adminLoginModal.classList.contains('active')) {
+        closeAdminModal();
+    }
+});
+
+// Admin login form submission
+if (adminLoginForm) {
+    adminLoginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const username = document.getElementById('admin-username').value.trim();
+        const password = document.getElementById('admin-password').value;
+
+        // Validate inputs
+        if (!username || !password) {
+            adminLoginMessage.textContent = 'Please enter both username and password.';
+            adminLoginMessage.className = 'form-message error';
+            return;
+        }
+
+        // Check credentials (simple client-side check)
+        // In production, this would be a server API call
+        if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+            // Set session
+            sessionStorage.setItem('adminAuthenticated', 'true');
+            sessionStorage.setItem('adminLoginTime', Date.now());
+
+            // Close modal
+            closeAdminModal();
+
+            // Redirect to admin page
+            window.location.href = '/admin.html';
+        } else {
+            adminLoginMessage.textContent = 'Invalid username or password.';
+            adminLoginMessage.className = 'form-message error';
+        }
+    });
+}
+
+// Check if user is already authenticated (for any admin pages)
+function checkAdminAuth() {
+    const isAuth = sessionStorage.getItem('adminAuthenticated') === 'true';
+    const loginTime = sessionStorage.getItem('adminLoginTime');
+
+    // Optional: Auto logout after 24 hours
+    if (isAuth && loginTime) {
+        const hoursSinceLogin = (Date.now() - parseInt(loginTime)) / (1000 * 60 * 60);
+        if (hoursSinceLogin > 24) {
+            sessionStorage.removeItem('adminAuthenticated');
+            sessionStorage.removeItem('adminLoginTime');
+            return false;
+        }
+    }
+
+    return isAuth;
+}
+
+// Enforce auth on admin pages
+if (window.location.pathname.includes('admin.html')) {
+    if (!checkAdminAuth()) {
+        // Redirect to home if not authenticated
+        window.location.href = '/index.html';
+    }
+}
+
+// Override admin nav link behavior to open modal instead
+document.querySelectorAll('a[href="/admin.html"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (checkAdminAuth()) {
+            // Already logged in, go straight to admin
+            window.location.href = '/admin.html';
+        } else {
+            openAdminModal();
+        }
+    });
+});
 
 console.log('AutoCare Pro website initialized successfully!');
 console.log('Tip: Press Ctrl+D to toggle dark mode.');
