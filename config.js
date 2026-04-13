@@ -23,7 +23,8 @@ const EMAILJS_CONFIG = {
     // Get these from https://dashboard.emailjs.com/
     USE: true,  // Set to true when configured
     SERVICE_ID: 'service_b9hj86k', // e.g., service_xxx
-    TEMPLATE_ID: 'Appointment Notification', // e.g., template_xxx
+    TEMPLATE_ID: 'Appointment Notification', // e.g., template_xxx (for admin notifications)
+    CUSTOMER_TEMPLATE_ID: 'Appointment Confirmation', // e.g., template_xxx (for customer confirmations)
     PUBLIC_KEY: 'ErJBQ4x8wsDLGLIBo', // e.g., user_xxx
 
     // Email addresses
