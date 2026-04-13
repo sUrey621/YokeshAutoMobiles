@@ -391,7 +391,14 @@
 
                     showMessage('', 'clear');
                     appointmentForm.reset();
-                    showSuccessModal();
+
+                    // Show success message with email confirmation info
+                    const emailConfirmed = result.systems.includes('CustomerConfirmationEmail');
+                    const successMessage = emailConfirmed
+                        ? 'Thank you for choosing Yokesh Auto Mobiles. Your appointment request has been received and a confirmation email has been sent to your email address.'
+                        : 'Thank you for choosing Yokesh Auto Mobiles. Your appointment request has been received. We\'ll contact you within 1 hour to confirm your appointment.';
+
+                    showSuccessModal(successMessage);
                 } else {
                     throw new Error('All systems failed to save');
                 }
@@ -418,7 +425,7 @@
             }
         }
 
-        function showSuccessModal() {
+        function showSuccessModal(message) {
             const modal = document.createElement('div');
             modal.className = 'modal active';
             modal.innerHTML = `
@@ -427,7 +434,7 @@
                         <i class="fas fa-check-circle"></i>
                     </div>
                     <h3>Appointment Requested!</h3>
-                    <p>Thank you for choosing Yokesh Auto Mobiles. We'll confirm your appointment within 1 hour.</p>
+                    <p>${message}</p>
                     <button class="btn btn-primary" onclick="this.closest('.modal').remove()">OK</button>
                 </div>
             `;

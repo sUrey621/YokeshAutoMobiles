@@ -62,6 +62,17 @@ class AppointmentHandler {
             }
         }
 
+        // 4. Send customer confirmation email
+        if (results.success && data.email) {
+            try {
+                await this.sendCustomerConfirmationEmail(data);
+                results.systems.push('CustomerConfirmationEmail');
+            } catch (error) {
+                results.errors.push(`CustomerConfirmationEmail: ${error.message}`);
+                console.warn('Customer confirmation email failed:', error);
+            }
+        }
+
         // 4. Try Supabase
         if (this.config.SUPABASE_CONFIG.USE && this.supabase) {
             try {
@@ -147,6 +158,31 @@ class AppointmentHandler {
         );
 
         console.log('Email sent via EmailJS:', data);
+    }
+
+    // ============================================// METHOD 3: EmailJS - Customer Confirmation// ============================================async sendCustomerConfirmationEmail(data) {
+        if (!window.emailjs) {
+            throw new Error('EmailJS library not loaded');
+        }
+
+        // Send confirmation email to customer
+        await emailjs.send(
+            this.config.EMAILJS_CONFIG.SERVICE_ID,
+            this.config.EMAILJS_CONFIG.CUSTOMER_TEMPLATE_ID,
+            {
+                name: data.name,
+                email: data.email,
+                phone: data.phone,
+                vehicle: data.vehicle,
+                service: data.service,
+                appointment_date: data.appointment_date,
+                message: data.message || 'No message',
+                confirmation_message: `Thank you for booking with Yokesh Auto Mobiles! We have received your appointment request for ${data.service} on ${data.appointment_date}. Our team will contact you within 1 hour to confirm your appointment.`
+            },
+            this.config.EMAILJS_CONFIG.PUBLIC_KEY
+        );
+
+        console.log('Customer confirmation email sent:', data.email);
     }
 
     // ============================================
