@@ -51,7 +51,7 @@ class AppointmentHandler {
             }
         }
 
-        // 3. Try EmailJS
+        // 3. Try EmailJS (for admin notification)
         if (this.config.EMAILJS_CONFIG.USE && window.emailjs) {
             try {
                 await this.saveViaEmailJS(data);
@@ -59,17 +59,6 @@ class AppointmentHandler {
             } catch (error) {
                 results.errors.push(`EmailJS: ${error.message}`);
                 console.warn('EmailJS failed:', error);
-            }
-        }
-
-        // 4. Send customer confirmation email
-        if (results.success && data.email) {
-            try {
-                await this.sendCustomerConfirmationEmail(data);
-                results.systems.push('CustomerConfirmationEmail');
-            } catch (error) {
-                results.errors.push(`CustomerConfirmationEmail: ${error.message}`);
-                console.warn('Customer confirmation email failed:', error);
             }
         }
 
@@ -81,6 +70,17 @@ class AppointmentHandler {
             } catch (error) {
                 results.errors.push(`Supabase: ${error.message}`);
                 console.warn('Supabase failed:', error);
+            }
+        }
+
+        // 5. Send customer confirmation email (after we know local storage worked)
+        if (data.email && window.emailjs) {
+            try {
+                await this.sendCustomerConfirmationEmail(data);
+                results.systems.push('CustomerConfirmationEmail');
+            } catch (error) {
+                results.errors.push(`CustomerConfirmationEmail: ${error.message}`);
+                console.warn('Customer confirmation email failed:', error);
             }
         }
 
@@ -160,7 +160,10 @@ class AppointmentHandler {
         console.log('Email sent via EmailJS:', data);
     }
 
-    // ============================================// METHOD 3: EmailJS - Customer Confirmation// ============================================async sendCustomerConfirmationEmail(data) {
+    // ============================================
+// METHOD 3: EmailJS - Customer Confirmation
+// ============================================
+async sendCustomerConfirmationEmail(data) {
         if (!window.emailjs) {
             throw new Error('EmailJS library not loaded');
         }
