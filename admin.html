@@ -390,6 +390,9 @@
         </div>
     </div>
 
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
     <!-- Supabase Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -399,6 +402,11 @@
             SUPABASE: {
                 URL: 'https://qajwaaazvatiyanmkaic.supabase.co', // Replace after setup
                 ANON_PUBLIC_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFhandhYWF6dmF0aXlhbm1rYWljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU1NzI5MDIsImV4cCI6MjA5MTE0ODkwMn0.SOknp-GR2HtmS3DfWFHqmrupt3Io7IAxDE8r6aJD5Jc' // Replace after setup
+            },
+            EMAILJS: {
+                SERVICE_ID: 'service_b9hj86k',
+                CONFIRMATION_TEMPLATE_ID: 'Booking Confirmation', // Customer confirmation template
+                PUBLIC_KEY: 'ErJBQ4x8wsDLGLIBo'
             },
             ADMIN: {
                 USERNAME: 'yokesh_admin',
@@ -437,6 +445,7 @@
 
                 // Initialize Supabase and load data
                 initSupabase();
+                initEmailJS();
                 loadAppointments();
             } else {
                 const errorEl = document.getElementById('loginError');
@@ -458,6 +467,7 @@
             document.getElementById('loginForm').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
             initSupabase();
+            initEmailJS();
             loadAppointments();
         }
 
@@ -471,6 +481,14 @@
             } else {
                 console.error('Supabase credentials not configured!');
                 alert('⚠️ Supabase not configured. Please edit admin.html and add your credentials.');
+            }
+        }
+
+        // Initialize EmailJS
+        function initEmailJS() {
+            if (typeof emailjs !== 'undefined') {
+                emailjs.init(CONFIG.EMAILJS.PUBLIC_KEY);
+                console.log('EmailJS initialized');
             }
         }
 
@@ -568,7 +586,26 @@
         }
 
         async function updateStatus(id, status) {
-            if (!supabaseClient) return;
+            console.log('updateStatus called:', id, status);
+            if (!supabaseClient) {
+                console.error('Supabase client not initialized!');
+                return;
+            }
+
+            // First fetch the appointment to get customer email
+            const { data: appointment, error: fetchError } = await supabaseClient
+                .from('appointments')
+                .select('*')
+                .eq('id', id)
+                .single();
+
+            console.log('Fetched appointment:', appointment);
+            console.log('Fetch error:', fetchError);
+
+            if (fetchError) {
+                alert('Failed to fetch appointment: ' + fetchError.message);
+                return;
+            }
 
             const { error } = await supabaseClient
                 .from('appointments')
@@ -578,7 +615,66 @@
             if (error) {
                 alert('Failed to update status: ' + error.message);
             } else {
+                console.log('Status updated, now checking email...');
+                console.log('Status:', status, 'Email:', appointment.email);
+                // Send confirmation email to customer if status is confirmed
+                if (status === 'confirmed' && appointment.email) {
+                    console.log('Calling sendConfirmationEmail...');
+                    sendConfirmationEmail(appointment);
+                } else {
+                    console.log('Email not sent - either not confirmed or no email');
+                }
                 loadAppointments();
+            }
+        }
+
+        // Send confirmation email to customer
+        async function sendConfirmationEmail(appointment) {
+            try {
+                // Initialize EmailJS if not already done
+                if (typeof emailjs === 'undefined') {
+                    console.error('EmailJS library not loaded!');
+                    alert('EmailJS not loaded. Check your internet connection.');
+                    return;
+                }
+
+                console.log('Sending confirmation email to:', appointment.email);
+                console.log('Service ID:', CONFIG.EMAILJS.SERVICE_ID);
+                console.log('Template ID:', CONFIG.EMAILJS.CONFIRMATION_TEMPLATE_ID);
+
+                // Format the appointment date
+                const appointmentDate = new Date(appointment.appointment_date).toLocaleDateString('en-IN', {
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+
+                const templateParams = {
+                    to_email: appointment.email,
+                    to_name: appointment.name,
+                    customer_name: appointment.name,
+                    service: appointment.service,
+                    appointment_date: appointmentDate,
+                    vehicle: appointment.vehicle,
+                    phone: appointment.phone,
+                    message: appointment.message || 'N/A'
+                };
+
+                console.log('Template params:', templateParams);
+
+                const response = await emailjs.send(
+                    CONFIG.EMAILJS.SERVICE_ID,
+                    CONFIG.EMAILJS.CONFIRMATION_TEMPLATE_ID,
+                    templateParams,
+                    CONFIG.EMAILJS.PUBLIC_KEY
+                );
+
+                console.log('Email sent successfully!', response);
+                alert(`Booking confirmed! Confirmation email sent to ${appointment.email}`);
+            } catch (emailError) {
+                console.error('Email sending failed:', emailError);
+                alert('Booking confirmed, but failed to send confirmation email.\n\nError: ' + emailError.text);
             }
         }
 
