@@ -405,7 +405,7 @@
             },
             EMAILJS: {
                 SERVICE_ID: 'service_b9hj86k',
-                CONFIRMATION_TEMPLATE_ID: 'Booking Confirmation', // Customer confirmation template
+                CONFIRMATION_TEMPLATE_ID: 'b2ajmyb', // Customer confirmation template
                 PUBLIC_KEY: 'ErJBQ4x8wsDLGLIBo'
             },
             ADMIN: {
@@ -631,6 +631,13 @@
         // Send confirmation email to customer
         async function sendConfirmationEmail(appointment) {
             try {
+                // Check if email exists
+                if (!appointment.email) {
+                    console.error('No email address in appointment:', appointment);
+                    alert('Booking confirmed, but no email address found for customer.');
+                    return;
+                }
+
                 // Initialize EmailJS if not already done
                 if (typeof emailjs === 'undefined') {
                     console.error('EmailJS library not loaded!');
