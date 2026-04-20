@@ -630,25 +630,23 @@
 
         // Send confirmation email to customer
         async function sendConfirmationEmail(appointment) {
+            console.log('sendConfirmationEmail called with:', appointment);
+            console.log('EmailJS available?', typeof emailjs !== 'undefined');
+            console.log('Config:', CONFIG.EMAILJS);
+
+            if (typeof emailjs === 'undefined') {
+                console.error('EmailJS library not loaded!');
+                alert('EmailJS not loaded. Check your internet connection.');
+                return;
+            }
+
+            if (!appointment.email) {
+                console.error('No email address:', appointment);
+                alert('No email found for this customer.');
+                return;
+            }
+
             try {
-                // Check if email exists
-                if (!appointment.email) {
-                    console.error('No email address in appointment:', appointment);
-                    alert('Booking confirmed, but no email address found for customer.');
-                    return;
-                }
-
-                // Initialize EmailJS if not already done
-                if (typeof emailjs === 'undefined') {
-                    console.error('EmailJS library not loaded!');
-                    alert('EmailJS not loaded. Check your internet connection.');
-                    return;
-                }
-
-                console.log('Sending confirmation email to:', appointment.email);
-                console.log('Service ID:', CONFIG.EMAILJS.SERVICE_ID);
-                console.log('Template ID:', CONFIG.EMAILJS.CONFIRMATION_TEMPLATE_ID);
-
                 // Format the appointment date
                 const appointmentDate = new Date(appointment.appointment_date).toLocaleDateString('en-IN', {
                     weekday: 'long',
@@ -668,20 +666,53 @@
                     message: appointment.message || 'N/A'
                 };
 
-                console.log('Template params:', templateParams);
+                console.log('Sending with params:', templateParams);
 
-                const response = await emailjs.send(
+                const result = await emailjs.send(
                     CONFIG.EMAILJS.SERVICE_ID,
                     CONFIG.EMAILJS.CONFIRMATION_TEMPLATE_ID,
                     templateParams,
                     CONFIG.EMAILJS.PUBLIC_KEY
                 );
 
-                console.log('Email sent successfully!', response);
-                alert(`Booking confirmed! Confirmation email sent to ${appointment.email}`);
+                console.log('SUCCESS:', result);
+                alert('Confirmation email sent to ' + appointment.email);
             } catch (emailError) {
-                console.error('Email sending failed:', emailError);
-                alert('Booking confirmed, but failed to send confirmation email.\n\nError: ' + emailError.text);
+                console.error('FAILED:', emailError);
+                alert('Failed to send email. Error: ' + (emailError.text || emailError.message));
+            }
+        }
+
+        // Simple test function - call this from browser console
+        async function testEmail() {
+            console.log('Testing EmailJS...');
+            console.log('EmailJS loaded?', typeof emailjs !== 'undefined');
+            console.log('Config:', CONFIG.EMAILJS);
+
+            if (typeof emailjs === 'undefined') {
+                alert('EmailJS not loaded!');
+                return;
+            }
+
+            try {
+                const result = await emailjs.send(
+                    'service_b9hj86k',
+                    'b2ajmyb',
+                    {
+                        to_email: 'yokeshautomobiles@gmail.com',
+                        customer_name: 'Test Customer',
+                        service: 'Oil Change',
+                        appointment_date: 'Monday, 27 April 2026',
+                        vehicle: 'Test Vehicle',
+                        phone: '1234567890'
+                    },
+                    'ErJBQ4x8wsDLGLIBo'
+                );
+                console.log('SUCCESS:', result);
+                alert('Test email sent!');
+            } catch (err) {
+                console.error('FAILED:', err);
+                alert('Test failed: ' + err.text);
             }
         }
 
