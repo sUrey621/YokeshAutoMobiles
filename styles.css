@@ -1346,6 +1346,7 @@ section {
 
     .nav-menu.active {
         left: 0;
+        z-index: 2000;
     }
 
     .hamburger {
