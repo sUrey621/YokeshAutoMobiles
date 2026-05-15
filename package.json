@@ -17,6 +17,8 @@
   "author": "Yokesh Auto Mobiles",
   "license": "MIT",
   "devDependencies": {
+    "@types/react": "~19.2.10",
+    "typescript": "~5.9.2",
     "vercel": "^1.0.0"
   },
   "engines": {
@@ -34,6 +36,7 @@
   "homepage": "https://github.com/sUrey621/YokeshAutoMobiles#readme",
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
-    "@vercel/edge-config": "^1.4.3"
+    "@vercel/edge-config": "^1.4.3",
+    "expo": "^55.0.15"
   }
 }

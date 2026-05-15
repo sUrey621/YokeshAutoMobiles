@@ -382,7 +382,7 @@
                 <div id="emptyState" class="empty-state" style="display: none;">
                     <i>📭</i>
                     <h3>No Appointments Yet</h3>
-                    <p> appointments will appear here once customers start booking.</p>
+                    <p>New appointments will appear here once customers start booking.</p>
                 </div>
             </div>
 
@@ -671,8 +671,7 @@
                 const result = await emailjs.send(
                     CONFIG.EMAILJS.SERVICE_ID,
                     CONFIG.EMAILJS.CONFIRMATION_TEMPLATE_ID,
-                    templateParams,
-                    CONFIG.EMAILJS.PUBLIC_KEY
+                    templateParams
                 );
 
                 console.log('SUCCESS:', result);
@@ -705,8 +704,7 @@
                         appointment_date: 'Monday, 27 April 2026',
                         vehicle: 'Test Vehicle',
                         phone: '1234567890'
-                    },
-                    'ErJBQ4x8wsDLGLIBo'
+                    }
                 );
                 console.log('SUCCESS:', result);
                 alert('Test email sent!');

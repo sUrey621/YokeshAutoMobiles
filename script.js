@@ -439,7 +439,7 @@ if (adminLoginForm) {
             closeAdminModal();
 
             // Redirect to admin page
-            window.location.href = '/admin.html';
+            window.location.href = 'admin.html';
         } else {
             adminLoginMessage.textContent = 'Invalid username or password.';
             adminLoginMessage.className = 'form-message error';
@@ -469,17 +469,17 @@ function checkAdminAuth() {
 if (window.location.pathname.includes('admin.html')) {
     if (!checkAdminAuth()) {
         // Redirect to home if not authenticated
-        window.location.href = '/index.html';
+        window.location.href = 'index.html';
     }
 }
 
 // Override admin nav link behavior to open modal instead
-document.querySelectorAll('a[href="/admin.html"]').forEach(link => {
+document.querySelectorAll('a[href="admin.html"]').forEach(link => {
     link.addEventListener('click', (e) => {
         e.preventDefault();
         if (checkAdminAuth()) {
             // Already logged in, go straight to admin
-            window.location.href = '/admin.html';
+            window.location.href = 'admin.html';
         } else {
             openAdminModal();
         }
