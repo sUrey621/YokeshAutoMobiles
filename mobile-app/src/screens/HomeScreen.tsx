@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Linking } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import { theme } from '../constants/theme';
 import { SERVICES, BUSINESS_INFO } from '../constants/config';
+
+const { width } = Dimensions.get('window');
 
 interface HomeScreenProps {
   navigation: any;
@@ -12,23 +14,29 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     <ScrollView style={styles.container}>
       {/* Hero Section */}
       <View style={styles.hero}>
-        <Text style={styles.heroTitle}>Expert Car Care &{'\n'}Water Wash Services</Text>
-        <Text style={styles.heroSubtitle}>Professional automotive care in Chennai</Text>
-        <View style={styles.heroButtons}>
-          <TouchableOpacity
-            style={styles.primaryBtn}
-            onPress={() => navigation.navigate('Services')}
-          >
-            <Text style={styles.primaryBtnText}>Our Services</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.secondaryBtn}
-            onPress={() => navigation.navigate('Booking')}
-          >
-            <Text style={styles.secondaryBtnText}>Book Appointment</Text>
-          </TouchableOpacity>
+        <Image source={require('../assets/car-hero.jpg')} style={styles.heroBgImage} />
+        <View style={styles.heroOverlay}>
+          <Image source={require('../assets/logo.jpeg')} style={styles.heroLogo} />
+          <Text style={styles.heroTitle}>Expert Car Care &{'\n'}Water Wash Services</Text>
+          <Text style={styles.heroSubtitle}>Professional automotive care in Chennai</Text>
+          <View style={styles.heroButtons}>
+            <TouchableOpacity
+              style={styles.primaryBtn}
+              onPress={() => navigation.navigate('Booking')}
+            >
+              <Text style={styles.primaryBtnText}>Our Services</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.secondaryBtn}
+              onPress={() => navigation.navigate('Booking')}
+            >
+              <Text style={styles.secondaryBtnText}>Book Appointment</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
+
+      {/* Car Image */}
 
       {/* Stats */}
       <View style={styles.stats}>
@@ -50,6 +58,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Our Services</Text>
 
+        <Image source={require('../assets/mechanic-workshop.jpg')} style={styles.sectionImage} />
+
         <Text style={styles.categoryTitle}>Mechanical Services</Text>
         <View style={styles.servicesGrid}>
           {SERVICES.mechanical.map((service) => (
@@ -64,6 +74,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         </View>
 
         <Text style={styles.categoryTitle}>Water Wash Packages</Text>
+        <Image source={require('../assets/car-wash.jpg')} style={styles.sectionImage} />
         <View style={styles.servicesGrid}>
           {SERVICES.wash.map((service) => (
             <TouchableOpacity
@@ -93,6 +104,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       </View>
 
       {/* Contact Section */}
+      <Image source={require('../assets/clean-car.jpg')} style={styles.sectionImage} />
       <View style={styles.contactSection}>
         <Text style={styles.sectionTitle}>Contact Us</Text>
         <Text style={styles.contactText}>{BUSINESS_INFO.name}</Text>
@@ -120,21 +132,48 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.background
   },
   hero: {
-    backgroundColor: theme.colors.secondary,
-    padding: theme.spacing.xl,
-    paddingTop: 60,
+    height: 480,
+    position: 'relative',
+    justifyContent: 'center',
     alignItems: 'center'
+  },
+  heroBgImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover'
+  },
+  heroOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: theme.spacing.xl,
+    paddingTop: 60
+  },
+  heroLogo: {
+    width: 80,
+    height: 80,
+    borderRadius: 16,
+    marginBottom: theme.spacing.md
   },
   heroTitle: {
     fontSize: 32,
-    fontWeight: 'bold',
+    fontWeight: '700',
+    lineHeight: 38,
     color: theme.colors.white,
     textAlign: 'center',
     marginBottom: theme.spacing.md
   },
   heroSubtitle: {
     fontSize: 16,
-    color: '#999',
+    color: 'rgba(255,255,255,0.8)',
     marginBottom: theme.spacing.lg
   },
   heroButtons: {
@@ -153,9 +192,7 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   },
   secondaryBtn: {
-    backgroundColor: 'transparent',
-    borderWidth: 2,
-    borderColor: theme.colors.white,
+    backgroundColor: theme.colors.buttonAccent,
     paddingVertical: theme.spacing.md,
     paddingHorizontal: theme.spacing.lg,
     borderRadius: theme.borderRadius.md
@@ -182,6 +219,12 @@ const styles = StyleSheet.create({
   statLabel: {
     fontSize: 12,
     color: theme.colors.textSecondary
+  },
+  sectionImage: {
+    width: '100%',
+    height: 180,
+    borderRadius: theme.borderRadius.lg,
+    marginBottom: theme.spacing.lg
   },
   section: {
     padding: theme.spacing.lg
@@ -232,7 +275,7 @@ const styles = StyleSheet.create({
     marginBottom: 4
   },
   bookCta: {
-    backgroundColor: theme.colors.primary,
+    backgroundColor: theme.colors.buttonAccent,
     padding: theme.spacing.lg,
     margin: theme.spacing.lg,
     borderRadius: theme.borderRadius.lg,

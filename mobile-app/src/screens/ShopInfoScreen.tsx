@@ -25,8 +25,7 @@ export default function ShopInfoScreen({ navigation }: ShopInfoScreenProps) {
   };
 
   const handleDirections = () => {
-    const address = encodeURIComponent(BUSINESS_INFO.address);
-    Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${address}`);
+    Linking.openURL(`https://www.google.com/maps/dir/?api=1&destination=${BUSINESS_INFO.mapsCoords}&destination_place_id=Yokesh+Auto+Mobiles`);
   };
 
   return (
@@ -118,7 +117,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.background
   },
   header: {
-    backgroundColor: theme.colors.secondary,
+    backgroundColor: theme.colors.headerBg,
     padding: theme.spacing.xl,
     paddingTop: 60,
     alignItems: 'center'
@@ -130,7 +129,7 @@ const styles = StyleSheet.create({
   },
   tagline: {
     fontSize: 14,
-    color: '#999',
+    color: theme.colors.textMuted,
     marginTop: theme.spacing.sm
   },
   quickActions: {

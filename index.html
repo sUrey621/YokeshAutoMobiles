@@ -13,7 +13,7 @@
     <meta property="og:url" content="https://yokeshautomobiles.com/">
     <meta property="og:title" content="Yokesh Auto Mobiles - Car Service & Wash in Chennai">
     <meta property="og:description" content="Professional car mechanical repair and water wash services in Pallikaranai, Chennai. Quality service at affordable prices.">
-    <meta property="og:image" content="https://via.placeholder.com/1200x630/dc0000/ffffff?text=Yokesh+Auto+Mobiles">
+    <meta property="og:image" content="https://yokeshautomobiles.vercel.app/Logo.jpeg">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
@@ -22,7 +22,7 @@
     <meta property="twitter:description" content="Professional car mechanical repair and water wash services in Pallikaranai, Chennai.">
 
     <!-- Mobile PWA / Theme Color -->
-    <meta name="theme-color" content="#dc0000">
+    <meta name="theme-color" content="#0060F0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Yokesh Auto">
@@ -32,7 +32,7 @@
     <link rel="manifest" href="manifest.json">
 
     <!-- Apple Touch Icons -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23dc0000' width='192' height='192'/><text x='50%' y='50%' font-size='80' text-anchor='middle' dy='.3em' fill='white'>🔧</text></svg>">
+    <link rel="apple-touch-icon" href="Logo.jpeg">
 
     <title>Yokesh Auto Mobiles - Expert Car Mechanical & Car Wash Services in Chennai</title>
     <link rel="stylesheet" href="styles.css">
@@ -45,23 +45,10 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">
-                <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Wrench shape -->
-                    <defs>
-                        <linearGradient id="wrenchGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#dc0000;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#a30000;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>
-                    <!-- Wrench handle -->
-                    <rect x="45" y="10" width="10" height="60" rx="2" fill="url(#wrenchGradient)"/>
-                    <!-- Wrench jaw -->
-                    <path d="M20 25 L30 25 L35 20 L35 15 L40 10 L45 10 L45 25 L55 25 L55 10 L60 10 L65 15 L65 20 L70 25 L80 25 L80 35 L70 35 L70 30 L65 30 L65 45 L60 50 L55 50 L55 30 L45 30 L45 50 L40 50 L35 45 L35 30 L30 30 L30 35 L20 35 Z"
-                          fill="url(#wrenchGradient)" stroke="#000" stroke-width="1"/>
-                </svg>
+            <a href="#home" class="logo">
+                <img src="Logo.jpeg" alt="Yokesh Auto Mobiles" class="logo-img">
                 <span class="logo-text">Yokesh Auto Mobiles</span>
-            </div>
+            </a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#services">Services</a></li>
@@ -82,12 +69,13 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-overlay"></div>
+        <div class="hero-image-bg"></div>
         <div class="hero-content">
             <h1>Expert Car Care & Water Wash Services</h1>
             <p>Professional mechanical repairs, maintenance, and premium car washing in Chennai</p>
             <div class="hero-buttons">
                 <a href="#services" class="btn btn-primary">Our Services</a>
-                <a href="appointment.html" class="btn btn-secondary">Book Appointment</a>
+                <a href="appointment.html" class="btn btn-accent">Book Appointment</a>
             </div>
             <div class="hero-stats">
                 <div class="stat">
@@ -109,9 +97,16 @@
     <!-- Services Section -->
     <section class="services" id="services">
         <div class="container">
-            <div class="section-header">
-                <h2>Our Mechanical Services</h2>
-                <p>Comprehensive car care from certified mechanics</p>
+            <div class="services-header">
+                <div class="services-header-text">
+                    <div class="section-header" style="margin-bottom: 0;">
+                        <h2>Our Mechanical Services</h2>
+                        <p>Comprehensive car care from certified mechanics</p>
+                    </div>
+                </div>
+                <div class="services-header-image">
+                    <img src="mechanic-workshop.jpg" alt="Certified mechanics at Yokesh Auto Mobiles" class="services-header-img">
+                </div>
             </div>
             <div class="services-grid">
                 <!-- Oil Change -->
@@ -258,6 +253,13 @@
                 <h2>Premium Water Wash</h2>
                 <p>Give your car a showroom shine with our professional detailing services. Get 15% OFF on all wash packages!</p>
             </div>
+            <div class="wash-showcase">
+                <img src="car-wash.jpg" alt="Professional car wash service at Yokesh Auto Mobiles" class="wash-showcase-img">
+                <div class="wash-showcase-badge">
+                    <i class="fas fa-tint"></i>
+                    <span>Eco-Friendly Wash</span>
+                </div>
+            </div>
             <div class="wash-grid">
                 <!-- Basic Wash -->
                 <div class="wash-card">
@@ -378,7 +380,7 @@
     <!-- Pricing Packages -->
     <section class="packages" id="pricing">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header dark">
                 <h2>Maintenance Packages</h2>
                 <p>Save with our bundled service packages</p>
             </div>
@@ -470,10 +472,7 @@
                     </div>
                 </div>
                 <div class="about-image">
-                    <div class="image-placeholder">
-                        <i class="fas fa-car-side"></i>
-                        <p>Professional Service</p>
-                    </div>
+                    <img src="garage-interior.jpg" alt="Yokesh Auto Mobiles workshop in Pallikaranai, Chennai" class="about-img">
                     <div class="experience-badge">
                         <span class="years">1+</span>
                         <span class="text">Years of<br>Excellence</span>
@@ -557,9 +556,14 @@
     <!-- Testimonials -->
     <section class="testimonials">
         <div class="container">
-            <div class="section-header">
-                <h2>What Our Customers Say</h2>
-                <p>Real reviews from satisfied customers</p>
+            <div class="testimonials-header">
+                <div class="section-header">
+                    <h2>What Our Customers Say</h2>
+                    <p>Real reviews from satisfied customers</p>
+                </div>
+                <div class="testimonials-image">
+                    <img src="clean-car.jpg" alt="Satisfied customer with freshly serviced car" class="testimonials-img">
+                </div>
             </div>
             <div class="testimonials-grid">
                 <div class="testimonial-card">
@@ -787,17 +791,7 @@
             <div class="footer-grid">
                 <div class="footer-col">
                     <div class="footer-logo">
-                        <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="wrenchGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#dc0000;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#a30000;stop-opacity:1" />
-                                </linearGradient>
-                            </defs>
-                            <rect x="45" y="10" width="10" height="60" rx="2" fill="url(#wrenchGradient2)"/>
-                            <path d="M20 25 L30 25 L35 20 L35 15 L40 10 L45 10 L45 25 L55 25 L55 10 L60 10 L65 15 L65 20 L70 25 L80 25 L80 35 L70 35 L70 30 L65 30 L65 45 L60 50 L55 50 L55 30 L45 30 L45 50 L40 50 L35 45 L35 30 L30 30 L30 35 L20 35 Z"
-                                  fill="url(#wrenchGradient2)" stroke="#000" stroke-width="1"/>
-                        </svg>
+                        <img src="Logo.jpeg" alt="Yokesh Auto Mobiles" class="logo-img">
                         <span class="footer-logo-text">Yokesh Auto Mobiles</span>
                     </div>
                     <p>Your trusted partner for professional car maintenance and premium car wash services in Chennai. Quality you can trust.</p>

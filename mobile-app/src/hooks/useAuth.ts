@@ -22,12 +22,11 @@ export async function checkAuth(): Promise<boolean> {
     }
 
     const expiresAt = parsed.expiresAt;
-    if (typeof expiresAt !== 'number' || Date.now() < expiresAt) {
-      return true;
+    if (typeof expiresAt !== 'number' || Date.now() >= expiresAt) {
+      await AsyncStorage.removeItem(SESSION_KEY);
+      return false;
     }
-
-    await AsyncStorage.removeItem(SESSION_KEY);
-    return false;
+    return true;
   } catch {
     return false;
   }

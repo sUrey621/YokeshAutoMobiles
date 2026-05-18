@@ -8,7 +8,6 @@ export interface Appointment {
   message: string;
   appointment_date: string;
   newsletter: boolean;
-  contact_consent: boolean;
   status: 'pending' | 'confirmed' | 'cancelled';
   created_at: string;
 }
@@ -25,10 +24,28 @@ export interface BookingFormData {
   contact_consent: boolean;
 }
 
-export interface AdminSession {
-  isAuthenticated: boolean;
-  loginTime: number;
-  expiresAt: number;
+export interface Customer {
+  customer_id: string;
+  full_name: string;
+  mobile_number: string;
+  email_address: string;
+  date_of_birth?: string;
+  gender?: string;
+  is_verified: boolean;
+  registered_at: string;
+  last_login_at: string;
+  notification_sms: boolean;
+  notification_email: boolean;
+  profile_photo_url?: string;
+}
+
+export interface CustomerSession {
+  customer_id: string;
+  full_name: string;
+  mobile_number: string;
+  email_address: string;
+  is_verified: boolean;
+  created_at: string;
 }
 
 export interface Service {

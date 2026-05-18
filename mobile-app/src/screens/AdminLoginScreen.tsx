@@ -5,9 +5,10 @@ import { login } from '../hooks/useAuth';
 
 interface AdminLoginScreenProps {
   navigation: any;
+  onBackToHome?: () => void;
 }
 
-const AdminLoginScreen: React.FC<AdminLoginScreenProps> = ({ navigation }) => {
+const AdminLoginScreen: React.FC<AdminLoginScreenProps> = ({ navigation, onBackToHome }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -60,6 +61,12 @@ const AdminLoginScreen: React.FC<AdminLoginScreenProps> = ({ navigation }) => {
             {loading ? 'Logging in...' : 'Login'}
           </Text>
         </TouchableOpacity>
+
+        {onBackToHome && (
+          <TouchableOpacity style={styles.backBtn} onPress={onBackToHome}>
+            <Text style={styles.backBtnText}>Back to Home</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
@@ -96,7 +103,7 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: theme.colors.border,
     borderRadius: theme.borderRadius.md,
     padding: theme.spacing.md,
     fontSize: 16,
@@ -116,6 +123,15 @@ const styles = StyleSheet.create({
     color: theme.colors.white,
     fontSize: 16,
     fontWeight: '600'
+  },
+  backBtn: {
+    alignItems: 'center',
+    marginTop: theme.spacing.lg,
+    padding: theme.spacing.md
+  },
+  backBtnText: {
+    color: theme.colors.textSecondary,
+    fontSize: 14
   }
 });
 

@@ -1,25 +1,27 @@
 /* Global Styles & CSS Variables */
 :root {
-    --primary-color: #dc0000;
-    --primary-dark: #a30000;
-    --primary-light: #ff3333;
+    --primary-color: #0060F0;
+    --primary-dark: #0048B4;
+    --primary-light: #3385FF;
     --secondary-color: #000000;
-    --secondary-dark: #1a1a1a;
-    --accent-color: #ffffff;
+    --secondary-dark: #0A0A0A;
+    --accent-color: #0060F0;
+    --button-accent: #0060F0;
+    --button-accent-dark: #0048B4;
     --text-dark: #000000;
     --text-medium: #333333;
     --text-light: #666666;
-    --background-light: #f5f5f5;
-    --white: #ffffff;
+    --background-light: #FFFFFF;
+    --white: #FFFFFF;
     --black: #000000;
-    --border-color: #333333;
-    --success-color: #00aa00;
-    --warning-color: #ff6600;
-    --error-color: #dc0000;
-    --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
-    --shadow-md: 0 4px 12px rgba(0,0,0,0.15);
-    --shadow-lg: 0 8px 24px rgba(0,0,0,0.2);
-    --transition: all 0.3s ease;
+    --border-color: #E5E5E5;
+    --success-color: #10B981;
+    --warning-color: #F59E0B;
+    --error-color: #EF4444;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+    --transition: all 0.2s ease;
     --border-radius: 8px;
     --border-radius-lg: 12px;
 }
@@ -139,6 +141,26 @@ a {
     color: var(--white);
 }
 
+.btn-accent {
+    background: var(--button-accent);
+    color: var(--white);
+    border: 2px solid var(--button-accent);
+}
+
+.btn-accent:hover {
+    background: var(--button-accent-dark);
+    border-color: var(--button-accent-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 96, 240, 0.3);
+}
+
+.btn-accent:hover {
+    background: var(--button-accent-dark);
+    border-color: var(--button-accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+}
+
 .btn-full {
     width: 100%;
 }
@@ -152,7 +174,7 @@ a {
     background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(10px);
     z-index: 1000;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 20px rgba(0, 96, 240, 0.1);
     padding: 15px 0;
     border-bottom: 2px solid var(--primary-color);
 }
@@ -175,20 +197,21 @@ a {
     color: var(--secondary-color);
 }
 
-.logo-icon {
+.logo-img {
     width: 45px;
     height: 45px;
+    object-fit: contain;
+    border-radius: 8px;
     transition: var(--transition);
 }
 
-.logo:hover .logo-icon {
-    transform: rotate(15deg);
+.logo:hover .logo-img {
+    transform: scale(1.1);
     filter: drop-shadow(0 0 10px rgba(220, 0, 0, 0.5));
 }
 
 .logo-text {
     color: var(--white);
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
     font-family: 'Bebas Neue', cursive;
     letter-spacing: 2px;
     font-weight: 400;
@@ -242,36 +265,25 @@ a {
     cursor: pointer;
 }
 
-.hamburger span {
-    width: 25px;
-    height: 3px;
-    background: var(--text-dark);
-    border-radius: 2px;
-    transition: var(--transition);
-}
-
 /* Hero Section */
 .hero {
     position: relative;
-    height: 100vh;
-    min-height: 700px;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--secondary-dark) 100%);
     color: var(--white);
     overflow: hidden;
+    padding: 120px 0 80px;
 }
 
-.hero::before {
-    content: '';
+.hero-image-bg {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23dc000020" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,170.7C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
-    background-size: cover;
+    background: url('car-hero.jpg') no-repeat center center / cover;
 }
 
 .hero-overlay {
@@ -280,12 +292,13 @@ a {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.4);
+    background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 100%);
+    z-index: 1;
 }
 
 .hero-content {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     text-align: center;
     max-width: 900px;
     padding: 0 20px;
@@ -293,16 +306,18 @@ a {
 
 .hero h1 {
     font-size: 3.5rem;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    margin-bottom: 24px;
     color: var(--white);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
 }
 
 .hero p {
     font-size: 1.3rem;
-    color: rgba(255,255,255,0.95);
+    color: rgba(255,255,255,0.85);
     margin-bottom: 40px;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    line-height: 1.6;
 }
 
 .hero-buttons {
@@ -328,12 +343,11 @@ a {
     font-size: 3rem;
     color: var(--primary-color);
     margin-bottom: 5px;
-    text-shadow: 0 0 20px rgba(220, 0, 0, 0.5);
     font-weight: 800;
 }
 
 .stat p {
-    color: rgba(255,255,255,0.9);
+    color: rgba(255,255,255,0.8);
     font-size: 0.95rem;
     margin: 0;
     font-weight: 500;
@@ -353,12 +367,10 @@ section {
 .section-header h2 {
     color: var(--secondary-color);
     margin-bottom: 15px;
-    text-shadow: 0 2px 10px rgba(220, 0, 0, 0.2);
 }
 
 .section-header.light h2 {
     color: var(--white);
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .section-header p {
@@ -367,12 +379,45 @@ section {
 }
 
 .section-header.light p {
-    color: rgba(255,255,255,0.85);
+    color: rgba(255,255,255,0.7);
+}
+
+.section-header.dark h2 {
+    color: var(--white);
+}
+
+.section-header.dark p {
+    color: rgba(255,255,255,0.7);
 }
 
 /* Services Section */
 .services {
     background: var(--background-light);
+}
+
+.services-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+.services-header-text .section-header {
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.services-header-image {
+    position: relative;
+}
+
+.services-header-img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
 }
 
 .services-grid {
@@ -444,8 +489,39 @@ section {
 
 /* Water Wash Section */
 .water-wash {
-    background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);
+    background: linear-gradient(135deg, #000000 0%, #1A1A1A 100%);
     color: var(--white);
+}
+
+.wash-showcase {
+    position: relative;
+    margin-bottom: 50px;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+}
+
+.wash-showcase-img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: var(--border-radius-lg);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.wash-showcase-badge {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 12px 24px;
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: 0 8px 25px rgba(0, 96, 240, 0.3);
 }
 
 .wash-grid {
@@ -588,6 +664,7 @@ section {
 .info-card i {
     font-size: 2.5rem;
     margin-bottom: 20px;
+    color: var(--primary-color);
 }
 
 .info-card h4 {
@@ -601,7 +678,8 @@ section {
 
 /* Packages Section */
 .packages {
-    background: var(--background-light);
+    background: #0A0A0A;
+    color: var(--white);
 }
 
 .packages-grid {
@@ -611,14 +689,14 @@ section {
 }
 
 .package-card {
-    background: var(--white);
+    background: #1A1A1A;
     border-radius: var(--border-radius-lg);
     padding: 40px 35px;
     text-align: center;
     box-shadow: var(--shadow-md);
     transition: var(--transition);
     position: relative;
-    border: 1px solid var(--border-color);
+    border: 1px solid #333;
 }
 
 .package-card:hover {
@@ -629,12 +707,12 @@ section {
 .package-card.featured {
     border: 3px solid var(--primary-color);
     transform: scale(1.05);
-    box-shadow: 0 0 30px rgba(220, 0, 0, 0.3);
+    box-shadow: 0 0 30px rgba(0, 96, 240, 0.3);
 }
 
 .package-card.featured:hover {
     transform: scale(1.05) translateY(-5px);
-    box-shadow: 0 0 40px rgba(220, 0, 0, 0.4);
+    box-shadow: 0 0 40px rgba(0, 96, 240, 0.4);
 }
 
 .package-badge {
@@ -653,12 +731,12 @@ section {
 }
 
 .package-header h3 {
-    color: var(--secondary-color);
+    color: var(--white);
     margin-bottom: 5px;
 }
 
 .package-header p {
-    color: var(--text-light);
+    color: rgba(255,255,255,0.6);
     font-size: 1rem;
     margin-bottom: 20px;
 }
@@ -666,8 +744,8 @@ section {
 .package-card .price {
     margin: 30px 0;
     padding: 20px 0;
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
 }
 
 .package-card .price .amount {
@@ -686,6 +764,7 @@ section {
     gap: 12px;
     margin-bottom: 15px;
     font-size: 0.95rem;
+    color: rgba(255,255,255,0.8);
 }
 
 .package-features li i {
@@ -784,6 +863,14 @@ section {
     position: relative;
 }
 
+.about-img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+}
+
 .image-placeholder {
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     border-radius: var(--border-radius-lg);
@@ -876,6 +963,31 @@ section {
 /* Testimonials */
 .testimonials {
     background: var(--background-light);
+}
+
+.testimonials-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+.testimonials-header .section-header {
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.testimonials-image {
+    position: relative;
+}
+
+.testimonials-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
 }
 
 .testimonials-grid {
@@ -1120,9 +1232,11 @@ section {
     margin-bottom: 20px;
 }
 
-.footer-logo .logo-icon {
+.footer-logo .logo-img {
     width: 50px;
     height: 50px;
+    object-fit: contain;
+    border-radius: 8px;
 }
 
 .footer-logo-text {
@@ -1337,11 +1451,16 @@ section {
         left: -100%;
         width: 100%;
         height: calc(100vh - 70px);
-        background: var(--white);
+        background: #0A0A0A;
         flex-direction: column;
         padding: 40px 20px;
         transition: var(--transition);
         box-shadow: var(--shadow-lg);
+    }
+
+    .nav-menu a {
+        color: var(--white);
+        font-size: 1.1rem;
     }
 
     .nav-menu.active {
@@ -1365,6 +1484,16 @@ section {
         transform: rotate(-45deg) translate(6px, -6px);
     }
 
+    .hero {
+        padding: 100px 0 60px;
+        min-height: auto;
+    }
+
+    .hero-content {
+        text-align: center;
+        max-width: 100%;
+    }
+
     .hero-buttons {
         flex-direction: column;
         align-items: center;
@@ -1372,10 +1501,41 @@ section {
 
     .hero-stats {
         gap: 30px;
+        justify-content: center;
+    }
+
+    .stat {
+        text-align: center;
+    }
+
+    .stat h3 {
+        font-size: 2.2rem;
     }
 
     .hero h1 {
         font-size: 2.5rem;
+    }
+
+    .services-header {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .services-header-text .section-header {
+        text-align: center;
+    }
+
+    .testimonials-header {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .testimonials-header .section-header {
+        text-align: center;
+    }
+
+    .wash-showcase-img {
+        height: 220px;
     }
 
     section {
@@ -1436,6 +1596,18 @@ section {
 
     .experience-badge .years {
         font-size: 2.5rem;
+    }
+
+    .about-img {
+        height: 300px;
+    }
+
+    .services-header-img {
+        height: 200px;
+    }
+
+    .testimonials-img {
+        height: 200px;
     }
 }
 

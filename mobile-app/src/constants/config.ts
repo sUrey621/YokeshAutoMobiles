@@ -2,7 +2,8 @@ export const SUPABASE_URL = 'https://qajwaaazvatiyanmkaic.supabase.co';
 export const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFhandhYWF6dmF0aXlhbm1rYWljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU1NzI5MDIsImV4cCI6MjA5MTE0ODkwMn0.SOknp-GR2HtmS3DfWFHqmrupt3Io7IAxDE8r6aJD5Jc';
 
 export const EMAILJS_SERVICE_ID = 'service_b9hj86k';
-export const EMAILJS_TEMPLATE_ID = 'b2ajmyb';
+export const EMAILJS_TEMPLATE_ID_1 = 'b2ajmyb';
+export const EMAILJS_TEMPLATE_ID_2 = 'b2ajmyb';
 export const EMAILJS_PUBLIC_KEY = 'ErJBQ4x8wsDLGLIBo';
 
 export const ADMIN_CREDENTIALS = {
@@ -10,13 +11,25 @@ export const ADMIN_CREDENTIALS = {
   password: 'Yokesh@2024'
 };
 
+// SMS Provider Configuration
+// Option 1: Fast2SMS (India) — https://www.fast2sms.com
+// Sign up free, get API key from dashboard
+export const SMS_PROVIDER = {
+  USE: false,
+  PROVIDER: 'fast2sms', // 'fast2sms' | 'textlocal' | 'msg91'
+  API_KEY: '',
+  SENDER_ID: 'YOKESH'
+};
+
 export const BUSINESS_INFO = {
   name: 'Yokesh Auto Mobiles',
   phone: '+919003244967',
   email: 'yokeshautomobiles@gmail.com',
-  address: 'No 49, Gopal Nagar, Ponniyamman Kovil 2nd Cross St, Narayanapuram, Pallikaranai, Chennai - 600100',
+  address: 'No 49, Gopal Nagar, 2nd St, Narayanapuram, Pallikaranai, Chennai, Tamil Nadu 600100',
   hours: 'Mon-Sat: 9:30 AM - 7:00 PM',
-  closedDays: 'Sunday'
+  closedDays: 'Sunday',
+  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Yokesh+Auto+Mobiles+Pallikaranai+Chennai',
+  mapsCoords: '12.939253376311177,80.2036280065026'
 };
 
 export const SERVICES = {

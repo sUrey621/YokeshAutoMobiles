@@ -1,40 +1,13 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { supabase } from './supabase';
+import { Customer, CustomerSession } from '../types';
 
 const OTP_EXPIRY_MINUTES = 10;
 const OTP_LENGTH = 6;
 
-export interface Customer {
-  customer_id: string;
-  full_name: string;
-  mobile_number: string;
-  email_address: string;
-  date_of_birth?: string;
-  gender?: string;
-  is_verified: boolean;
-  registered_at: string;
-  last_login_at: string;
-  notification_sms: boolean;
-  notification_email: boolean;
-  profile_photo_url?: string;
-}
-
-export interface CustomerSession {
-  customer_id: string;
-  full_name: string;
-  mobile_number: string;
-  email_address: string;
-  is_verified: boolean;
-  created_at: string;
-}
-
-// Generate a random OTP
 function generateOTP(): string {
   return Math.floor(100000 + Math.random() * 900000).toString();
 }
-
-// Store OTP in database (for demo - in production use Redis or similar)
-// Store last OTP for demo purposes (in production, never store OTPs like this)
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const OTP_STORAGE_KEY = 'demo_otp';
 
@@ -170,15 +143,15 @@ export async function loginCustomer(
 
 // Get customer session from local storage
 export async function getCustomerSession(): Promise<CustomerSession | null> {
-  const { supabase: sb } = require('./supabase');
-  const sessionData = await sb.auth.getSession();
-  return sessionData?.session?.user ? {
-    customer_id: sessionData.session.user.id,
-    full_name: sessionData.session.user.user_metadata?.full_name || '',
-    mobile_number: sessionData.session.user.user_metadata?.mobile_number || '',
-    email_address: sessionData.session.user.email || '',
+  const { data } = await supabase.auth.getSession();
+  const session = data.session;
+  return session?.user ? {
+    customer_id: session.user.id,
+    full_name: session.user.user_metadata?.full_name || '',
+    mobile_number: session.user.user_metadata?.mobile_number || '',
+    email_address: session.user.email || '',
     is_verified: true,
-    created_at: sessionData.session.user.created_at
+    created_at: session.user.created_at
   } : null;
 }
 

@@ -11,6 +11,7 @@ import {
 import { theme } from '../constants/theme';
 import { fetchAppointments, updateAppointmentStatus } from '../services/supabase';
 import { sendConfirmationEmail } from '../services/emailjs';
+import { sendSMS } from '../services/sms';
 import { logout } from '../hooks/useAuth';
 import { Appointment, Stats } from '../types';
 
@@ -59,7 +60,7 @@ const AdminDashboardScreen: React.FC<AdminDashboardScreenProps> = ({ navigation 
   const handleConfirm = async (appointment: Appointment) => {
     Alert.alert(
       'Confirm Appointment',
-      `Send confirmation email to ${appointment.email}?`,
+      `Confirm booking for ${appointment.name}? Email + SMS will be sent.`,
       [
         { text: 'Cancel', style: 'cancel' },
         {
@@ -67,12 +68,20 @@ const AdminDashboardScreen: React.FC<AdminDashboardScreenProps> = ({ navigation 
           onPress: async () => {
             try {
               await updateAppointmentStatus(appointment.id, 'confirmed');
-              await sendConfirmationEmail(appointment);
-              Alert.alert('Success', 'Appointment confirmed and email sent!');
               loadAppointments();
-            } catch (error) {
-              Alert.alert('Error', 'Failed to send confirmation email');
-              loadAppointments();
+              try {
+                await sendConfirmationEmail(appointment);
+              } catch {
+                console.log('[Admin] Email failed, continuing');
+              }
+              try {
+                await sendSMS(appointment.phone, `Yokesh Auto Mobiles: Your booking for ${appointment.service} on ${appointment.appointment_date} is CONFIRMED! See you at our workshop.`);
+              } catch {
+                console.log('[Admin] SMS failed, continuing');
+              }
+              Alert.alert('Confirmed', `Appointment confirmed for ${appointment.name}.`);
+            } catch {
+              Alert.alert('Error', 'Could not update appointment status. Please try again.');
             }
           }
         }
@@ -115,15 +124,15 @@ const AdminDashboardScreen: React.FC<AdminDashboardScreenProps> = ({ navigation 
     switch (status) {
       case 'confirmed': return theme.colors.success;
       case 'cancelled': return theme.colors.error;
-      default: return '#856404';
+      case 'pending': return theme.colors.warning;
+      default: return theme.colors.textMuted;
     }
   };
-
   const getStatusBg = (status: string) => {
     switch (status) {
-      case 'confirmed': return '#d4edda';
-      case 'cancelled': return '#f8d7da';
-      default: return theme.colors.warning;
+      case 'confirmed': return '#1b5e20';
+      case 'cancelled': return '#b71c1c';
+      default: return '#e65100';
     }
   };
 
@@ -161,7 +170,7 @@ const AdminDashboardScreen: React.FC<AdminDashboardScreenProps> = ({ navigation 
             <Text style={styles.statLabel}>Total</Text>
           </View>
           <View style={styles.statCard}>
-            <Text style={[styles.statNumber, { color: '#856404' }]}>{stats.pending}</Text>
+            <Text style={[styles.statNumber, { color: theme.colors.warning }]}>{stats.pending}</Text>
             <Text style={styles.statLabel}>Pending</Text>
           </View>
           <View style={styles.statCard}>
@@ -240,7 +249,7 @@ const styles = StyleSheet.create({
     color: theme.colors.textSecondary
   },
   header: {
-    backgroundColor: theme.colors.secondary,
+    backgroundColor: theme.colors.headerBg,
     padding: theme.spacing.lg,
     paddingTop: 50,
     flexDirection: 'row',
@@ -254,7 +263,7 @@ const styles = StyleSheet.create({
   },
   headerSubtitle: {
     fontSize: 14,
-    color: '#999'
+    color: theme.colors.textMuted
   },
   logoutBtn: {
     color: theme.colors.white,

@@ -37,13 +37,13 @@ export async function updateAppointmentStatus(
   if (error) throw error;
 }
 
-export async function getAppointment(id: string): Promise<Appointment> {
+export async function fetchCustomerBookings(email: string): Promise<Appointment[]> {
   const { data, error } = await supabase
     .from('appointments')
     .select('*')
-    .eq('id', id)
-    .single();
+    .eq('email', email)
+    .order('created_at', { ascending: false });
 
   if (error) throw error;
-  return data;
+  return data || [];
 }

@@ -4,6 +4,8 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
+  TextInput,
+  Modal,
   StyleSheet,
   Alert,
   Linking
@@ -11,26 +13,21 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { theme } from '../constants/theme';
 import { BUSINESS_INFO } from '../constants/config';
-import { Appointment } from '../types';
+import { Appointment, Customer } from '../types';
+import { fetchCustomerBookings } from '../services/supabase';
 
 interface CustomerProfileScreenProps {
   navigation: any;
 }
 
-interface CustomerData {
-  customer_id: string;
-  full_name: string;
-  mobile_number: string;
-  email_address: string;
-  registered_at: string;
-  notification_sms: boolean;
-  notification_email: boolean;
-}
-
 export default function CustomerProfileScreen({ navigation }: CustomerProfileScreenProps) {
-  const [customer, setCustomer] = useState<CustomerData | null>(null);
+  const [customer, setCustomer] = useState<Customer | null>(null);
   const [bookings, setBookings] = useState<Appointment[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editName, setEditName] = useState('');
+  const [editPhone, setEditPhone] = useState('');
+  const [editEmail, setEditEmail] = useState('');
 
   useEffect(() => {
     loadCustomerData();
@@ -41,27 +38,41 @@ export default function CustomerProfileScreen({ navigation }: CustomerProfileScr
       const sessionData = await AsyncStorage.getItem('user_session');
       if (sessionData) {
         const parsed = JSON.parse(sessionData);
-        setCustomer({
+        const customerData: Customer = {
           customer_id: parsed.customer_id || 'GUEST',
-          full_name: parsed.name || 'Guest User',
-          mobile_number: parsed.phone || '',
-          email_address: parsed.email || '',
+          full_name: parsed.name || parsed.full_name || 'Guest User',
+          mobile_number: parsed.phone || parsed.mobile_number || '',
+          email_address: parsed.email || parsed.email_address || '',
+          is_verified: parsed.is_verified || false,
           registered_at: parsed.registered_at || new Date().toISOString(),
-          notification_sms: true,
-          notification_email: true
-        });
+          last_login_at: parsed.last_login_at || new Date().toISOString(),
+          notification_sms: parsed.notification_sms ?? true,
+          notification_email: parsed.notification_email ?? true
+        };
+        setCustomer(customerData);
 
-        // Load bookings if customer_id exists
-        if (parsed.customer_id) {
-          // In production, fetch from API
-          // For demo, bookings will be empty
-          setBookings([]);
+        if (customerData.email_address) {
+          try {
+            const bookingsData = await fetchCustomerBookings(customerData.email_address);
+            setBookings(bookingsData);
+          } catch (err) {
+            console.log('No bookings found or failed to fetch');
+          }
         }
       }
     } catch (error) {
       console.error('Error loading customer data:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const resetToLogin = () => {
+    const parent = navigation.getParent();
+    if (parent) {
+      parent.reset({ index: 0, routes: [{ name: 'Login' }] });
+    } else {
+      navigation.reset({ index: 0, routes: [{ name: 'Login' }] });
     }
   };
 
@@ -76,10 +87,7 @@ export default function CustomerProfileScreen({ navigation }: CustomerProfileScr
           style: 'destructive',
           onPress: async () => {
             await AsyncStorage.removeItem('user_session');
-            navigation.reset({
-              index: 0,
-              routes: [{ name: 'Login' }]
-            });
+            resetToLogin();
           }
         }
       ]
@@ -98,18 +106,38 @@ export default function CustomerProfileScreen({ navigation }: CustomerProfileScr
           onPress: async () => {
             await AsyncStorage.removeItem('user_session');
             Alert.alert('Account Deleted', 'Your account has been deleted.');
-            navigation.reset({
-              index: 0,
-              routes: [{ name: 'Login' }]
-            });
+            resetToLogin();
           }
         }
       ]
     );
   };
 
-  const handleEditProfile = () => {
-    Alert.alert('Edit Profile', 'Profile editing will be available soon.');
+  const openEditProfile = () => {
+    if (!customer) return;
+    setEditName(customer.full_name);
+    setEditPhone(customer.mobile_number);
+    setEditEmail(customer.email_address);
+    setShowEditModal(true);
+  };
+
+  const saveProfile = async () => {
+    if (!customer) return;
+    if (!editName.trim()) {
+      Alert.alert('Error', 'Name cannot be empty');
+      return;
+    }
+
+    const updatedCustomer = {
+      ...customer,
+      full_name: editName.trim(),
+      mobile_number: editPhone.trim(),
+      email_address: editEmail.trim()
+    };
+    setCustomer(updatedCustomer);
+    await AsyncStorage.setItem('user_session', JSON.stringify(updatedCustomer));
+    setShowEditModal(false);
+    Alert.alert('Success', 'Profile updated successfully');
   };
 
   const handleNotificationToggle = async (type: 'sms' | 'email') => {
@@ -117,9 +145,9 @@ export default function CustomerProfileScreen({ navigation }: CustomerProfileScr
     const key = type === 'sms' ? 'notification_sms' : 'notification_email';
     const updatedCustomer = {
       ...customer,
-      [key]: !customer[key as keyof CustomerData]
+      [key]: !customer[key as keyof Customer]
     };
-    setCustomer(updatedCustomer as CustomerData);
+    setCustomer(updatedCustomer as Customer);
     await AsyncStorage.setItem('user_session', JSON.stringify(updatedCustomer));
     Alert.alert('Success', `Notification ${type === 'sms' ? 'SMS' : 'Email'} preferences updated.`);
   };
@@ -177,7 +205,7 @@ export default function CustomerProfileScreen({ navigation }: CustomerProfileScr
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Personal Information</Text>
-          <TouchableOpacity onPress={handleEditProfile}>
+          <TouchableOpacity onPress={openEditProfile}>
             <Text style={styles.editBtn}>✏️ Edit</Text>
           </TouchableOpacity>
         </View>
@@ -272,6 +300,54 @@ export default function CustomerProfileScreen({ navigation }: CustomerProfileScr
         </TouchableOpacity>
       </View>
 
+      {/* Edit Profile Modal */}
+      <Modal visible={showEditModal} transparent animationType="slide">
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Edit Profile</Text>
+
+            <Text style={styles.modalLabel}>Full Name</Text>
+            <TextInput
+              style={styles.modalInput}
+              value={editName}
+              onChangeText={setEditName}
+              placeholder="Enter your name"
+            />
+
+            <Text style={styles.modalLabel}>Mobile Number</Text>
+            <TextInput
+              style={styles.modalInput}
+              value={editPhone}
+              onChangeText={setEditPhone}
+              placeholder="Enter mobile number"
+              keyboardType="phone-pad"
+            />
+
+            <Text style={styles.modalLabel}>Email Address</Text>
+            <TextInput
+              style={styles.modalInput}
+              value={editEmail}
+              onChangeText={setEditEmail}
+              placeholder="Enter email"
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={styles.modalCancelBtn}
+                onPress={() => setShowEditModal(false)}
+              >
+                <Text style={styles.modalCancelBtnText}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.modalSaveBtn} onPress={saveProfile}>
+                <Text style={styles.modalSaveBtnText}>Save</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
       {/* Contact Shop */}
       <View style={styles.contactSection}>
         <Text style={styles.contactTitle}>Need Help?</Text>
@@ -320,7 +396,7 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   },
   header: {
-    backgroundColor: theme.colors.secondary,
+    backgroundColor: theme.colors.headerBg,
     padding: theme.spacing.xl,
     paddingTop: 60,
     alignItems: 'center'
@@ -346,7 +422,7 @@ const styles = StyleSheet.create({
   },
   customerId: {
     fontSize: 12,
-    color: '#999',
+    color: theme.colors.textMuted,
     marginTop: theme.spacing.xs
   },
   section: {
@@ -378,7 +454,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingVertical: theme.spacing.sm,
     borderBottomWidth: 1,
-    borderBottomColor: '#eee'
+    borderBottomColor: theme.colors.border
   },
   infoLabel: {
     fontSize: 14,
@@ -403,7 +479,7 @@ const styles = StyleSheet.create({
     paddingVertical: theme.spacing.xs,
     paddingHorizontal: theme.spacing.md,
     borderRadius: theme.borderRadius.sm,
-    backgroundColor: '#ddd'
+    backgroundColor: theme.colors.surfaceLight
   },
   toggleActive: {
     backgroundColor: theme.colors.success
@@ -449,7 +525,7 @@ const styles = StyleSheet.create({
   actionBtn: {
     paddingVertical: theme.spacing.md,
     borderBottomWidth: 1,
-    borderBottomColor: '#eee'
+    borderBottomColor: theme.colors.border
   },
   actionBtnText: {
     fontSize: 14,
@@ -482,5 +558,70 @@ const styles = StyleSheet.create({
     color: theme.colors.primary,
     fontWeight: '600',
     marginTop: theme.spacing.sm
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  modalContent: {
+    backgroundColor: theme.colors.white,
+    borderRadius: theme.borderRadius.lg,
+    padding: theme.spacing.xl,
+    width: '85%',
+    maxWidth: 400
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: theme.colors.text,
+    marginBottom: theme.spacing.lg,
+    textAlign: 'center'
+  },
+  modalLabel: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: theme.colors.text,
+    marginBottom: theme.spacing.xs
+  },
+  modalInput: {
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    borderRadius: theme.borderRadius.md,
+    padding: theme.spacing.md,
+    fontSize: 16,
+    marginBottom: theme.spacing.md
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: theme.spacing.md
+  },
+  modalCancelBtn: {
+    flex: 1,
+    padding: theme.spacing.md,
+    alignItems: 'center',
+    marginRight: theme.spacing.sm,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    borderRadius: theme.borderRadius.md
+  },
+  modalCancelBtnText: {
+    fontSize: 16,
+    color: theme.colors.textSecondary
+  },
+  modalSaveBtn: {
+    flex: 1,
+    padding: theme.spacing.md,
+    alignItems: 'center',
+    marginLeft: theme.spacing.sm,
+    backgroundColor: theme.colors.primary,
+    borderRadius: theme.borderRadius.md
+  },
+  modalSaveBtnText: {
+    fontSize: 16,
+    color: theme.colors.white,
+    fontWeight: '600'
   }
 });

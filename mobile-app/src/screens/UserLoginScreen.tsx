@@ -80,9 +80,9 @@ export default function UserLoginScreen({ navigation }: UserLoginScreenProps) {
             destination,
             destinationType,
             mode,
-            fullName: mode === 'register' ? fullName : undefined,
-            mobileNumber: mode === 'register' ? mobileNumber : undefined,
-            emailAddress: mode === 'register' ? emailAddress : undefined
+            fullName,
+            mobileNumber,
+            emailAddress
           }) }]
         );
       } else {
@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
   },
   headerSubtitle: {
     fontSize: 14,
-    color: '#999',
+    color: theme.colors.textMuted,
     marginTop: theme.spacing.sm
   },
   form: {
@@ -304,7 +304,7 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: theme.colors.border,
     borderRadius: theme.borderRadius.md,
     padding: theme.spacing.md,
     fontSize: 16,
@@ -325,7 +325,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.surface,
     borderRadius: theme.borderRadius.md,
     borderWidth: 1,
-    borderColor: '#ddd'
+    borderColor: theme.colors.border
   },
   phoneInput: {
     flex: 1

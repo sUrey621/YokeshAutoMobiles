@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NITROGARAGE — Dashboard</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --oil-black: #0a0a0b;
+    --carbon-lg: #1a1a1e;
+    --carbon-md: #222226;
+    --carbon-sm: #2a2a2e;
+    --neon-red: #ff1a1a;
+    --neon-red-dim: #cc1414;
+    --hazard-yellow: #f0c800;
+    --hazard-yellow-dim: #c4a000;
+    --glow-green: #00ff88;
+    --glow-green-dim: #00cc6a;
+    --cyan-accent: #00d4ff;
+    --text-primary: #f0f0f0;
+    --text-muted: #888899;
+    --text-dim: #555566;
+    --gauge-red: #ff2a2a;
+    --gauge-orange: #ff6a00;
+    --gauge-green: #00ff6a;
+    --border-color: #333338;
+    --font-display: 'Orbitron', monospace;
+    --font-body: 'Rajdhani', sans-serif;
+    --font-ui: 'Inter', sans-serif;
+  }
+
+  body {
+    background: var(--oil-black);
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(255,26,26,0.03) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 50%, rgba(240,200,0,0.03) 0%, transparent 60%);
+  }
+
+  .viewport {
+    max-width: 1440px;
+    width: 100%;
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .frame {
+    background: var(--carbon-lg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+      0 0 40px rgba(255,26,26,0.05),
+      0 20px 60px rgba(0,0,0,0.6);
+  }
+
+  .frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(240,200,0,0.15), transparent 40%, transparent 60%, rgba(255,26,26,0.15));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Desktop frame 1280x720 (16:9) */
+  .frame-desktop {
+    width: 960px;
+    min-height: 540px;
+    flex-shrink: 0;
+  }
+
+  /* Mobile frame 360x780 */
+  .frame-mobile {
+    width: 280px;
+    min-height: 540px;
+    flex-shrink: 0;
+  }
+
+  /* ─── CARBON FIBER PATTERN ─── */
+  .carbon-bg {
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255,255,255,0.015) 2px,
+        rgba(255,255,255,0.015) 3px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        rgba(255,255,255,0.015) 2px,
+        rgba(255,255,255,0.015) 3px
+      ),
+      var(--carbon-md);
+  }
+
+  /* ─── HEADER ─── */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: linear-gradient(180deg, var(--carbon-sm), var(--carbon-md));
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--hazard-yellow-dim), transparent);
+    opacity: 0.3;
+  }
+
+  .logo {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 18px;
+    letter-spacing: 6px;
+    background: linear-gradient(135deg, var(--hazard-yellow), var(--hazard-yellow-dim));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+    filter: drop-shadow(0 0 20px rgba(240,200,0,0.3));
+    position: relative;
+  }
+
+  .logo::after {
+    content: '⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯';
+    display: block;
+    font-size: 6px;
+    letter-spacing: 2px;
+    color: var(--hazard-yellow-dim);
+    opacity: 0.3;
+    margin-top: -2px;
+  }
+
+  .header-nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-ui);
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .header-nav span {
+    padding: 5px 12px;
+    border-radius: 6px;
+    cursor: default;
+    transition: 0.2s;
+    border: 1px solid transparent;
+  }
+
+  .header-nav span.active {
+    color: var(--hazard-yellow);
+    background: rgba(240,200,0,0.08);
+    border-color: rgba(240,200,0,0.2);
+  }
+
+  .status-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-right: 6px;
+    animation: pulse-dot 1.5s ease-in-out infinite;
+  }
+
+  .status-dot.live { background: var(--glow-green); box-shadow: 0 0 8px var(--glow-green); }
+  .status-dot.alert { background: var(--neon-red); box-shadow: 0 0 8px var(--neon-red); }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ─── DASHBOARD LAYOUT ─── */
+  .dashboard {
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Metrics row */
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .metric-card {
+    background: var(--carbon-md);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 14px 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .metric-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .metric-card.revenue::before { background: linear-gradient(90deg, var(--hazard-yellow), var(--hazard-yellow-dim)); }
+  .metric-card.vehicles::before { background: linear-gradient(90deg, var(--cyan-accent), #0088cc); }
+  .metric-card.parts::before { background: linear-gradient(90deg, var(--neon-red), var(--neon-red-dim)); }
+  .metric-card.staff::before { background: linear-gradient(90deg, var(--glow-green), var(--glow-green-dim)); }
+
+  .metric-label {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .metric-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
+
+  .metric-card.revenue .metric-value { color: var(--hazard-yellow); }
+  .metric-card.vehicles .metric-value { color: var(--cyan-accent); }
+  .metric-card.parts .metric-value { color: var(--neon-red); }
+  .metric-card.staff .metric-value { color: var(--glow-green); }
+
+  .metric-change {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    color: var(--glow-green);
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    margin-top: 2px;
+  }
+
+  .metric-change.down { color: var(--neon-red); }
+
+  .metric-symbol {
+    position: absolute;
+    right: 12px;
+    bottom: 10px;
+    font-size: 36px;
+    opacity: 0.06;
+    font-family: var(--font-display);
+  }
+
+  /* ─── GAUGES ─── */
+  .gauges-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .gauge-card {
+    background: var(--carbon-md);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+  }
+
+  .gauge-label {
+    font-family: var(--font-ui);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .gauge-canvas-wrap {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .gauge-canvas-wrap canvas {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .gauge-value-overlay {
+    position: absolute;
+    bottom: 14px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  .gauge-value-overlay .gauge-sub {
+    font-size: 9px;
+    font-family: var(--font-ui);
+    color: var(--text-muted);
+    letter-spacing: 1px;
+  }
+
+  /* ─── MAIN CONTENT ROW ─── */
+  .content-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .panel {
+    background: var(--carbon-md);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-color);
+    font-family: var(--font-ui);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+  }
+
+  .panel-header .badge {
+    font-size: 9px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: rgba(255,26,26,0.12);
+    color: var(--neon-red);
+    border: 1px solid rgba(255,26,26,0.2);
+  }
+
+  .panel-header .badge.warn {
+    background: rgba(240,200,0,0.12);
+    color: var(--hazard-yellow);
+    border-color: rgba(240,200,0,0.2);
+  }
+
+  .panel-header .badge.ok {
+    background: rgba(0,255,136,0.1);
+    color: var(--glow-green);
+    border-color: rgba(0,255,136,0.2);
+  }
+
+  /* ─── REPAIRS LIST (DIAGNOSTIC SCREEN) ─── */
+  .repairs-list {
+    padding: 6px 0;
+    font-family: var(--font-ui);
+    font-size: 11px;
+  }
+
+  .repair-item {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 8px;
+    padding: 8px 14px;
+    border-bottom: 1px solid rgba(51,51,56,0.5);
+    align-items: center;
+    transition: 0.15s;
+    cursor: default;
+  }
+
+  .repair-item:last-child { border-bottom: none; }
+  .repair-item:hover { background: rgba(255,255,255,0.02); }
+
+  .repair-time {
+    font-family: var(--font-display);
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+  }
+
+  .repair-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .repair-customer {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 12px;
+  }
+
+  .repair-vehicle {
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  .repair-status {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-family: var(--font-ui);
+  }
+
+  .repair-status.in-progress {
+    background: rgba(0,212,255,0.1);
+    color: var(--cyan-accent);
+    border: 1px solid rgba(0,212,255,0.2);
+  }
+
+  .repair-status.waiting {
+    background: rgba(240,200,0,0.1);
+    color: var(--hazard-yellow);
+    border: 1px solid rgba(240,200,0,0.2);
+  }
+
+  .repair-status.done {
+    background: rgba(0,255,136,0.1);
+    color: var(--glow-green);
+    border: 1px solid rgba(0,255,136,0.2);
+  }
+
+  .repair-status.emergency {
+    background: rgba(255,26,26,0.12);
+    color: var(--neon-red);
+    border: 1px solid rgba(255,26,26,0.25);
+    animation: glitch-border 1.5s ease-in-out infinite;
+  }
+
+  @keyframes glitch-border {
+    0%, 100% { border-color: rgba(255,26,26,0.25); }
+    50% { border-color: rgba(255,26,26,0.6); box-shadow: inset 0 0 12px rgba(255,26,26,0.1); }
+  }
+
+  /* ─── ALERTS ─── */
+  .alert-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    border-bottom: 1px solid rgba(51,51,56,0.5);
+    font-size: 11px;
+    font-family: var(--font-ui);
+  }
+
+  .alert-item:last-child { border-bottom: none; }
+
+  .alert-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  .alert-icon.red { background: rgba(255,26,26,0.12); color: var(--neon-red); border: 1px solid rgba(255,26,26,0.2); }
+  .alert-icon.yellow { background: rgba(240,200,0,0.1); color: var(--hazard-yellow); border: 1px solid rgba(240,200,0,0.2); }
+  .alert-icon.cyan { background: rgba(0,212,255,0.1); color: var(--cyan-accent); border: 1px solid rgba(0,212,255,0.2); }
+
+  .alert-text {
+    flex: 1;
+    color: var(--text-primary);
+  }
+
+  .alert-text .alert-desc {
+    font-size: 9px;
+    color: var(--text-muted);
+    margin-top: 1px;
+  }
+
+  .alert-time {
+    font-size: 9px;
+    color: var(--text-dim);
+    font-family: var(--font-display);
+    letter-spacing: 0.5px;
+  }
+
+  /* ─── MOBILE SCALING ─── */
+  .frame-mobile .header { padding: 8px 12px; }
+  .frame-mobile .logo { font-size: 13px; letter-spacing: 3px; }
+  .frame-mobile .logo::after { font-size: 4px; }
+  .frame-mobile .header-nav span { font-size: 9px; padding: 3px 8px; display: none; }
+  .frame-mobile .header-nav span.active { display: inline; }
+  .frame-mobile .dashboard { padding: 10px 12px; gap: 10px; }
+  .frame-mobile .metrics { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .frame-mobile .metric-card { padding: 10px 12px; }
+  .frame-mobile .metric-value { font-size: 17px; }
+  .frame-mobile .gauges-row { grid-template-columns: 1fr; gap: 8px; }
+  .frame-mobile .content-row { grid-template-columns: 1fr; gap: 8px; }
+
+  /* ─── SCAN LINE EFFECT ─── */
+  .scanlines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 3px
+    );
+    z-index: 1;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1100px) {
+    .viewport { flex-direction: column; align-items: center; }
+    .frame-desktop { width: 100%; min-height: auto; }
+    .frame-mobile { width: 100%; max-width: 360px; }
+  }
+
+  /* ─── TOOLTIP STATUS BAR ─── */
+  .status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 14px;
+    background: rgba(0,0,0,0.3);
+    border-top: 1px solid var(--border-color);
+    font-family: var(--font-ui);
+    font-size: 9px;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+  }
+
+  .status-bar .sys-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .status-bar .sys-info span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .frame-mobile .status-bar { font-size: 7px; padding: 4px 10px; }
+  .frame-mobile .status-bar .sys-info { gap: 6px; }
+</style>
+</head>
+<body>
+
+<div class="viewport">
+
+  <!-- DESKTOP -->
+  <div class="frame frame-desktop">
+    <div class="carbon-bg" style="position:relative;">
+
+      <div class="header">
+        <div class="logo">NITROGARAGE</div>
+        <div class="header-nav">
+          <span class="active">● Dashboard</span>
+          <span>Repairs</span>
+          <span>Inventory</span>
+          <span>Staff</span>
+          <span style="color:var(--neon-red);font-weight:600;display:flex;align-items:center;gap:4px;">
+            <span class="status-dot alert"></span> LIVE
+          </span>
+        </div>
+      </div>
+
+      <div class="dashboard">
+
+        <!-- Metrics -->
+        <div class="metrics">
+          <div class="metric-card revenue">
+            <div class="metric-label">Revenue <span style="color:var(--hazard-yellow)">▲</span></div>
+            <div class="metric-value">₹2,84,500</div>
+            <div class="metric-change">▲ 12.4%</div>
+            <div class="metric-symbol">$</div>
+          </div>
+          <div class="metric-card vehicles">
+            <div class="metric-label">In Service <span style="color:var(--cyan-accent)">◆</span></div>
+            <div class="metric-value">18</div>
+            <div class="metric-change">▲ 3</div>
+            <div class="metric-symbol">⚙</div>
+          </div>
+          <div class="metric-card parts">
+            <div class="metric-label">Parts Alert <span style="color:var(--neon-red)">⚠</span></div>
+            <div class="metric-value">7</div>
+            <div class="metric-change down">▼ urgent</div>
+            <div class="metric-symbol">!</div>
+          </div>
+          <div class="metric-card staff">
+            <div class="metric-label">Technicians <span style="color:var(--glow-green)">●</span></div>
+            <div class="metric-value">12</div>
+            <div class="metric-change">▲ 2 on duty</div>
+            <div class="metric-symbol">◊</div>
+          </div>
+        </div>
+
+        <!-- Gauges -->
+        <div class="gauges-row">
+          <div class="gauge-card">
+            <div class="gauge-label">Shop Load</div>
+            <div class="gauge-canvas-wrap">
+              <canvas id="gauge1" width="160" height="100"></canvas>
+              <div class="gauge-value-overlay" style="color:var(--cyan-accent);">82%<div class="gauge-sub">capacity</div></div>
+            </div>
+          </div>
+          <div class="gauge-card">
+            <div class="gauge-label">Efficiency</div>
+            <div class="gauge-canvas-wrap">
+              <canvas id="gauge2" width="160" height="100"></canvas>
+              <div class="gauge-value-overlay" style="color:var(--glow-green);">94%<div class="gauge-sub">rating</div></div>
+            </div>
+          </div>
+          <div class="gauge-card">
+            <div class="gauge-label">Revenue Target</div>
+            <div class="gauge-canvas-wrap">
+              <canvas id="gauge3" width="160" height="100"></canvas>
+              <div class="gauge-value-overlay" style="color:var(--hazard-yellow);">₹2.84L<div class="gauge-sub">of ₹5L</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content-row">
+
+          <!-- Repairs List -->
+          <div class="panel">
+            <div class="panel-header">
+              <span>Live Repairs — Diagnostics</span>
+              <span class="badge warn">8 active</span>
+            </div>
+            <div class="repairs-list">
+              <div class="repair-item">
+                <span class="repair-time">09:42</span>
+                <div class="repair-info">
+                  <span class="repair-customer">BMW M5 — S. Kumar</span>
+                  <span class="repair-vehicle">Engine tune · ECU remap</span>
+                </div>
+                <span class="repair-status in-progress">In Prog</span>
+              </div>
+              <div class="repair-item">
+                <span class="repair-time">08:15</span>
+                <div class="repair-info">
+                  <span class="repair-customer">Mercedes G63 — R. Patel</span>
+                  <span class="repair-vehicle">Full exhaust · Turbo kit</span>
+                </div>
+                <span class="repair-status in-progress">In Prog</span>
+              </div>
+              <div class="repair-item">
+                <span class="repair-time">07:30</span>
+                <div class="repair-info">
+                  <span class="repair-customer">Audi RS7 — P. Singh</span>
+                  <span class="repair-vehicle">Brake overhaul · Fluids</span>
+                </div>
+                <span class="repair-status waiting">Waiting</span>
+              </div>
+              <div class="repair-item">
+                <span class="repair-time">10:05</span>
+                <div class="repair-info">
+                  <span class="repair-customer">Porsche 911 — A. Iyer</span>
+                  <span class="repair-vehicle">Suspension · Alignment</span>
+                </div>
+                <span class="repair-status in-progress">In Prog</span>
+              </div>
+              <div class="repair-item">
+                <span class="repair-time">—</span>
+                <div class="repair-info">
+                  <span class="repair-customer">Lambo Urus — V. Nair</span>
+                  <span class="repair-vehicle">Overheating · EMERGENCY</span>
+                </div>
+                <span class="repair-status emergency">URGENT</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Alerts -->
+          <div class="panel">
+            <div class="panel-header">
+              <span>Alerts & Notifications</span>
+              <span class="badge">3 new</span>
+            </div>
+            <div style="padding:4px 0;">
+              <div class="alert-item">
+                <div class="alert-icon red">!</div>
+                <div class="alert-text">
+                  Critical: OEM brake pads low stock
+                  <div class="alert-desc">Reorder immediately — 2 units remaining</div>
+                </div>
+                <span class="alert-time">2m</span>
+              </div>
+              <div class="alert-item">
+                <div class="alert-icon yellow">⚠</div>
+                <div class="alert-text">
+                  Service due: Lift #3 calibration
+                  <div class="alert-desc">Scheduled maintenance overdue by 3 days</div>
+                </div>
+                <span class="alert-time">14m</span>
+              </div>
+              <div class="alert-item">
+                <div class="alert-icon cyan">i</div>
+                <div class="alert-text">
+                  New booking: Jaguar F-Type
+                  <div class="alert-desc">Full detail + ceramic coating — 11:00 AM</div>
+                </div>
+                <span class="alert-time">32m</span>
+              </div>
+              <div class="alert-item">
+                <div class="alert-icon yellow">⚠</div>
+                <div class="alert-text">
+                  Inventory: Synthetic oil < 5 cases
+                  <div class="alert-desc">Order placed — ETA tomorrow</div>
+                </div>
+                <span class="alert-time">1h</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="status-bar">
+        <div class="sys-info">
+          <span><span class="status-dot live"></span> SYSTEM ONLINE</span>
+          <span>UPTIME 14d 7h</span>
+          <span>v3.2.1</span>
+        </div>
+        <span>NITROGARAGE ● CHENNAI</span>
+      </div>
+
+      <div class="scanlines"></div>
+    </div>
+  </div>
+
+  <!-- MOBILE -->
+  <div class="frame frame-mobile">
+    <div class="carbon-bg" style="position:relative;">
+
+      <div class="header">
+        <div class="logo">NITROGARAGE</div>
+        <div class="header-nav">
+          <span class="active">● Dashboard</span>
+        </div>
+      </div>
+
+      <div class="dashboard">
+
+        <div class="metrics">
+          <div class="metric-card revenue">
+            <div class="metric-label">Revenue</div>
+            <div class="metric-value">₹2.84L</div>
+            <div class="metric-change">▲ 12.4%</div>
+          </div>
+          <div class="metric-card vehicles">
+            <div class="metric-label">In Service</div>
+            <div class="metric-value">18</div>
+            <div class="metric-change">▲ 3</div>
+          </div>
+          <div class="metric-card parts">
+            <div class="metric-label">Parts Alert</div>
+            <div class="metric-value">7</div>
+            <div class="metric-change down">▼ urgent</div>
+          </div>
+          <div class="metric-card staff">
+            <div class="metric-label">Technicians</div>
+            <div class="metric-value">12</div>
+            <div class="metric-change">▲ 2 on duty</div>
+          </div>
+        </div>
+
+        <div class="gauges-row">
+          <div class="gauge-card">
+            <div class="gauge-label">Shop Load</div>
+            <div class="gauge-canvas-wrap">
+              <canvas id="gauge1m" width="200" height="100"></canvas>
+              <div class="gauge-value-overlay" style="color:var(--cyan-accent);">82%<div class="gauge-sub">capacity</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-row">
+          <div class="panel">
+            <div class="panel-header">
+              <span>Live Repairs</span>
+              <span class="badge warn">8</span>
+            </div>
+            <div class="repairs-list">
+              <div class="repair-item">
+                <span class="repair-time">09:42</span>
+                <div class="repair-info">
+                  <span class="repair-customer">BMW M5</span>
+                  <span class="repair-vehicle">S. Kumar · Engine tune</span>
+                </div>
+                <span class="repair-status in-progress">In</span>
+              </div>
+              <div class="repair-item">
+                <span class="repair-time">—</span>
+                <div class="repair-info">
+                  <span class="repair-customer">Lambo Urus</span>
+                  <span class="repair-vehicle">V. Nair · OVERHEAT</span>
+                </div>
+                <span class="repair-status emergency">!!</span>
+              </div>
+              <div class="repair-item">
+                <span class="repair-time">08:15</span>
+                <div class="repair-info">
+                  <span class="repair-customer">Mercedes G63</span>
+                  <span class="repair-vehicle">R. Patel · Exhaust</span>
+                </div>
+                <span class="repair-status in-progress">In</span>
+              </div>
+              <div class="repair-item">
+                <span class="repair-time">07:30</span>
+                <div class="repair-info">
+                  <span class="repair-customer">Audi RS7</span>
+                  <span class="repair-vehicle">P. Singh · Brakes</span>
+                </div>
+                <span class="repair-status waiting">—</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="status-bar">
+        <div class="sys-info">
+          <span><span class="status-dot live"></span> LIVE</span>
+          <span>v3.2.1</span>
+        </div>
+        <span>CHENNAI</span>
+      </div>
+
+      <div class="scanlines"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function drawGauge(canvasId, value, color, maxVal) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width;
+    const h = canvas.height;
+    const cx = w / 2;
+    const cy = h - 8;
+    const r = Math.min(w, h) * 0.38;
+    const startAngle = Math.PI * 0.75;
+    const endAngle = Math.PI * 2.25;
+    const range = endAngle - startAngle;
+    const valAngle = startAngle + range * Math.min(value / (maxVal || 100), 1);
+
+    ctx.clearRect(0, 0, w, h);
+
+    // Background arc
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, startAngle, endAngle);
+    ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+    ctx.lineWidth = 8;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+
+    // Value arc
+    const gradient = ctx.createLinearGradient(0, 0, w, 0);
+    if (color === 'cyan') {
+      gradient.addColorStop(0, '#004466');
+      gradient.addColorStop(0.5, '#00d4ff');
+      gradient.addColorStop(1, '#00d4ff');
+    } else if (color === 'green') {
+      gradient.addColorStop(0, '#004422');
+      gradient.addColorStop(0.5, '#00ff88');
+      gradient.addColorStop(1, '#00ff88');
+    } else {
+      gradient.addColorStop(0, '#664400');
+      gradient.addColorStop(0.5, '#f0c800');
+      gradient.addColorStop(1, '#f0c800');
+    }
+
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, startAngle, valAngle);
+    ctx.strokeStyle = gradient;
+    ctx.lineWidth = 8;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+
+    // Tick marks
+    for (let i = 0; i <= 10; i++) {
+      const t = i / 10;
+      const angle = startAngle + range * t;
+      const inner = r - 10;
+      const outer = r - 4;
+      ctx.beginPath();
+      ctx.moveTo(cx + Math.cos(angle) * inner, cy + Math.sin(angle) * inner);
+      ctx.lineTo(cx + Math.cos(angle) * outer, cy + Math.sin(angle) * outer);
+      ctx.strokeStyle = i <= value / 10 ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.08)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+
+    // Needle
+    const needleLen = r * 0.75;
+    const needleX = cx + Math.cos(valAngle) * needleLen;
+    const needleY = cy + Math.sin(valAngle) * needleLen;
+
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(needleX, needleY);
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 2;
+    ctx.shadowColor = color === 'cyan' ? '#00d4ff' : color === 'green' ? '#00ff88' : '#f0c800';
+    ctx.shadowBlur = 10;
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+
+    // Center dot
+    ctx.beginPath();
+    ctx.arc(cx, cy, 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffffff';
+    ctx.fill();
+    ctx.shadowColor = color === 'cyan' ? '#00d4ff' : color === 'green' ? '#00ff88' : '#f0c800';
+    ctx.shadowBlur = 12;
+    ctx.beginPath();
+    ctx.arc(cx, cy, 2, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  }
+
+  drawGauge('gauge1', 82, 'cyan', 100);
+  drawGauge('gauge2', 94, 'green', 100);
+  drawGauge('gauge3', 57, 'yellow', 100);
+  drawGauge('gauge1m', 82, 'cyan', 100);
+</script>
+
+</body>
+</html>

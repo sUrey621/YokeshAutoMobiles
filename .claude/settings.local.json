@@ -10,7 +10,10 @@
       "Bash(git commit:*)",
       "Bash(vercel:*)",
       "Bash(npx vercel:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(npx expo *)",
+      "Bash(npm install *)",
+      "Bash(rm *)"
     ]
   }
 }

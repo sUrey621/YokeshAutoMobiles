@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, Image, ActivityIndicator, StyleSheet } from 'react-native';
 import { theme } from '../constants/theme';
 
 // Screens
 import HomeScreen from '../screens/HomeScreen';
 import BookingScreen from '../screens/BookingScreen';
+import AccountScreen from '../screens/AccountScreen';
 import UserLoginScreen from '../screens/UserLoginScreen';
 import ShopInfoScreen from '../screens/ShopInfoScreen';
 import OTPScreen from '../screens/OTPScreen';
@@ -38,8 +39,8 @@ function CustomerTabs() {
         tabBarActiveTintColor: theme.colors.primary,
         tabBarInactiveTintColor: theme.colors.textSecondary,
         tabBarStyle: {
-          backgroundColor: theme.colors.white,
-          borderTopColor: '#eee',
+          backgroundColor: theme.colors.surface,
+          borderTopColor: theme.colors.border,
           paddingBottom: 5,
           paddingTop: 5,
           height: 60
@@ -73,7 +74,7 @@ function CustomerTabs() {
       />
       <Tab.Screen
         name="AccountTab"
-        component={UserLoginScreen}
+        component={AccountScreen}
         options={{
           tabBarLabel: 'Account',
           tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>👤</Text>
@@ -97,10 +98,12 @@ function CustomerStack() {
 }
 
 // Admin Stack
-function AdminStack() {
+function AdminStack({ onBackToHome }: { onBackToHome: () => void }) {
   return (
     <Stack.Navigator id="AdminStackNavigator" screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="AdminLogin" component={AdminLoginScreen} />
+      <Stack.Screen name="AdminLogin">
+        {props => <AdminLoginScreen {...props} onBackToHome={onBackToHome} />}
+      </Stack.Screen>
       <Stack.Screen name="Dashboard" component={AdminDashboardScreen} />
     </Stack.Navigator>
   );
@@ -108,27 +111,31 @@ function AdminStack() {
 
 // Root Navigator
 export default function AppNavigator() {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [loading, setLoading] = useState(true);
   const [showAdmin, setShowAdmin] = useState(false);
 
   useEffect(() => {
-    checkAuth().then(setIsAuthenticated);
+    checkAuth().then(auth => {
+      if (auth) setShowAdmin(true);
+      setLoading(false);
+    });
   }, []);
 
-  if (isAuthenticated === null) {
+  if (loading) {
     return <LoadingScreen />;
   }
 
   return (
     <NavigationContainer>
-      {isAuthenticated ? (
-        <AdminStack />
-      ) : showAdmin ? (
-        <AdminStack />
+      {showAdmin ? (
+        <AdminStack onBackToHome={() => setShowAdmin(false)} />
       ) : (
         <>
           <View style={styles.topBar}>
-            <Text style={styles.topBarText}>Yokesh Auto Mobiles</Text>
+            <View style={styles.topBarLeft}>
+              <Image source={require('../assets/logo.jpeg')} style={styles.topBarLogo} />
+              <Text style={styles.topBarText}>Yokesh Auto Mobiles</Text>
+            </View>
             <Text
               style={styles.adminLink}
               onPress={() => setShowAdmin(true)}
@@ -156,12 +163,22 @@ const styles = StyleSheet.create({
     color: theme.colors.textSecondary
   },
   topBar: {
-    backgroundColor: theme.colors.secondary,
+    backgroundColor: theme.colors.headerBg,
     padding: theme.spacing.md,
     paddingTop: 50,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'
+  },
+  topBarLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10
+  },
+  topBarLogo: {
+    width: 32,
+    height: 32,
+    borderRadius: 6
   },
   topBarText: {
     color: theme.colors.white,

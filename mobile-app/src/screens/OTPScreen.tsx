@@ -127,21 +127,18 @@ export default function OTPScreen({ navigation, route }: any) {
       const result = await verifyOTP(destination, fullOtp);
 
       if (result.success) {
-        if (mode === 'register') {
-          // Save customer session
-          const sessionData = {
-            customer_id: `CUST_${Date.now()}`,
-            name: fullName,
-            full_name: fullName,
-            email: emailAddress,
-            email_address: emailAddress,
-            phone: mobileNumber,
-            mobile_number: mobileNumber,
-            registered_at: new Date().toISOString(),
-            is_verified: true
-          };
-          await AsyncStorage.setItem('user_session', JSON.stringify(sessionData));
-        }
+        const sessionData = {
+          customer_id: `YAM-${String((Date.now() % 9000) + 1000).padStart(4, '0')}`,
+          name: fullName || destination,
+          full_name: fullName || destination,
+          email: emailAddress || (destinationType === 'email' ? destination : ''),
+          email_address: emailAddress || (destinationType === 'email' ? destination : ''),
+          phone: mobileNumber || (destinationType === 'sms' ? destination : ''),
+          mobile_number: mobileNumber || (destinationType === 'sms' ? destination : ''),
+          registered_at: new Date().toISOString(),
+          is_verified: true
+        };
+        await AsyncStorage.setItem('user_session', JSON.stringify(sessionData));
 
         Alert.alert(
           'Success',
@@ -259,7 +256,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 14,
-    color: '#999',
+    color: theme.colors.textMuted,
     marginTop: theme.spacing.sm,
     textAlign: 'center'
   },
@@ -277,7 +274,7 @@ const styles = StyleSheet.create({
     width: 48,
     height: 56,
     borderWidth: 2,
-    borderColor: '#ddd',
+    borderColor: theme.colors.border,
     borderRadius: theme.borderRadius.md,
     fontSize: 24,
     fontWeight: 'bold',
