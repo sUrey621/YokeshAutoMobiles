@@ -14,21 +14,16 @@ import { theme } from '../constants/theme';
 import { verifyOTP, sendOTP, getLastOTP } from '../services/auth';
 
 interface OTPScreenParams {
-  navigation: any;
-  route: {
-    params: {
-      destination: string;
-      destinationType: 'sms' | 'email';
-      mode: 'register' | 'login';
-      fullName?: string;
-      mobileNumber?: string;
-      emailAddress?: string;
-    };
-  };
+  destination: string;
+  destinationType: 'sms' | 'email';
+  mode: 'register' | 'login';
+  fullName?: string;
+  mobileNumber?: string;
+  emailAddress?: string;
 }
 
 export default function OTPScreen({ navigation, route }: any) {
-  const { destination, destinationType, mode, fullName, mobileNumber, emailAddress } = route.params;
+  const { destination, destinationType, mode, fullName, mobileNumber, emailAddress }: OTPScreenParams = route.params;
 
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [loading, setLoading] = useState(false);

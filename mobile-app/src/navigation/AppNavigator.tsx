@@ -133,7 +133,7 @@ export default function AppNavigator() {
         <>
           <View style={styles.topBar}>
             <View style={styles.topBarLeft}>
-              <Image source={require('../assets/logo.jpeg')} style={styles.topBarLogo} />
+              <Image source={require('../../assets/logo.jpeg')} style={styles.topBarLogo} />
               <Text style={styles.topBarText}>Yokesh Auto Mobiles</Text>
             </View>
             <Text

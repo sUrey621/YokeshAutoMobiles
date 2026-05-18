@@ -66,11 +66,11 @@ export const SERVICE_OPTIONS = [
   'AC Service & Repair',
   'Tire Services',
   'General Repair',
-  'Express Wash (₹799)',
-  'Deluxe Wash (₹999)',
-  'Premium Detail (₹1200)',
-  'Basic Care Package (₹1499/yr)',
-  'Premium Care Package (₹3999/yr)',
-  'Fleet Care (Custom)',
+  'Express Wash',
+  'Deluxe Wash',
+  'Premium Detail',
+  'Basic Care',
+  'Premium Care',
+  'Fleet Care',
   'Other / Multiple Services'
 ];

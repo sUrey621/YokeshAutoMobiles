@@ -14,9 +14,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     <ScrollView style={styles.container}>
       {/* Hero Section */}
       <View style={styles.hero}>
-        <Image source={require('../assets/car-hero.jpg')} style={styles.heroBgImage} />
+        <Image source={require('../../assets/car-hero.jpg')} style={styles.heroBgImage} />
         <View style={styles.heroOverlay}>
-          <Image source={require('../assets/logo.jpeg')} style={styles.heroLogo} />
+          <Image source={require('../../assets/logo.jpeg')} style={styles.heroLogo} />
           <Text style={styles.heroTitle}>Expert Car Care &{'\n'}Water Wash Services</Text>
           <Text style={styles.heroSubtitle}>Professional automotive care in Chennai</Text>
           <View style={styles.heroButtons}>
@@ -35,8 +35,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
           </View>
         </View>
       </View>
-
-      {/* Car Image */}
 
       {/* Stats */}
       <View style={styles.stats}>
@@ -58,7 +56,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Our Services</Text>
 
-        <Image source={require('../assets/mechanic-workshop.jpg')} style={styles.sectionImage} />
+        <Image source={require('../../assets/mechanic-workshop.jpg')} style={styles.sectionImage} />
 
         <Text style={styles.categoryTitle}>Mechanical Services</Text>
         <View style={styles.servicesGrid}>
@@ -74,7 +72,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         </View>
 
         <Text style={styles.categoryTitle}>Water Wash Packages</Text>
-        <Image source={require('../assets/car-wash.jpg')} style={styles.sectionImage} />
+        <Image source={require('../../assets/car-wash.jpg')} style={styles.sectionImage} />
         <View style={styles.servicesGrid}>
           {SERVICES.wash.map((service) => (
             <TouchableOpacity
@@ -104,7 +102,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       </View>
 
       {/* Contact Section */}
-      <Image source={require('../assets/clean-car.jpg')} style={styles.sectionImage} />
+      <Image source={require('../../assets/clean-car.jpg')} style={styles.sectionImage} />
       <View style={styles.contactSection}>
         <Text style={styles.sectionTitle}>Contact Us</Text>
         <Text style={styles.contactText}>{BUSINESS_INFO.name}</Text>
