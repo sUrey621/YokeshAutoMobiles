@@ -20,6 +20,10 @@
     {
       "src": "*.json",
       "use": "@vercel/static"
+    },
+    {
+      "src": "*.{jpg,jpeg,png,gif,svg,webp}",
+      "use": "@vercel/static"
     }
   ],
   "cleanUrls": true,
