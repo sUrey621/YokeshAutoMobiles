@@ -161,6 +161,19 @@ a {
     box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
 }
 
+.btn-download {
+    background: var(--success-color);
+    color: var(--white);
+    border: 2px solid var(--success-color);
+}
+
+.btn-download:hover {
+    background: #059669;
+    border-color: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
 .btn-full {
     width: 100%;
 }
