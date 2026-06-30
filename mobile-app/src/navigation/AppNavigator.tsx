@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { View, Text, Image, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, Image, Animated, ActivityIndicator, StyleSheet } from 'react-native';
 import { theme } from '../constants/theme';
 
 // Screens
@@ -11,21 +11,27 @@ import BookingScreen from '../screens/BookingScreen';
 import AccountScreen from '../screens/AccountScreen';
 import UserLoginScreen from '../screens/UserLoginScreen';
 import ShopInfoScreen from '../screens/ShopInfoScreen';
-import OTPScreen from '../screens/OTPScreen';
 import CustomerProfileScreen from '../screens/CustomerProfileScreen';
-import AdminLoginScreen from '../screens/AdminLoginScreen';
-import AdminDashboardScreen from '../screens/AdminDashboardScreen';
-import { checkAuth } from '../hooks/useAuth';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 // Loading screen while checking auth
 function LoadingScreen() {
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, { toValue: 1, duration: 600, useNativeDriver: false }).start();
+  }, [fadeAnim]);
+
   return (
     <View style={styles.loadingContainer}>
-      <ActivityIndicator size="large" color={theme.colors.primary} />
-      <Text style={styles.loadingText}>Loading...</Text>
+      <Animated.View style={[styles.loadingContent, { opacity: fadeAnim }]}>
+        <Image source={require('../../assets/logo.png')} style={styles.loadingLogo} />
+        <Text style={styles.loadingTitle}>Yokesh Auto Mobiles</Text>
+        <Text style={styles.loadingTagline}>Expert Car Care & Water Wash Services</Text>
+        <ActivityIndicator size="large" color="#FFFFFF" style={styles.loadingSpinner} />
+      </Animated.View>
     </View>
   );
 }
@@ -91,34 +97,20 @@ function CustomerStack() {
       <Stack.Screen name="CustomerTabs" component={CustomerTabs} />
       <Stack.Screen name="Booking" component={BookingScreen} />
       <Stack.Screen name="Login" component={UserLoginScreen} />
-      <Stack.Screen name="OTP" component={OTPScreen} />
       <Stack.Screen name="Profile" component={CustomerProfileScreen} />
-    </Stack.Navigator>
-  );
-}
-
-// Admin Stack
-function AdminStack({ onBackToHome }: { onBackToHome: () => void }) {
-  return (
-    <Stack.Navigator id="AdminStackNavigator" screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="AdminLogin">
-        {props => <AdminLoginScreen {...props} onBackToHome={onBackToHome} />}
-      </Stack.Screen>
-      <Stack.Screen name="Dashboard" component={AdminDashboardScreen} />
     </Stack.Navigator>
   );
 }
 
 // Root Navigator
 export default function AppNavigator() {
-  const [loading, setLoading] = useState(true);
-  const [showAdmin, setShowAdmin] = useState(false);
+  const [loading, setLoading] = React.useState(true);
 
   useEffect(() => {
-    checkAuth().then(auth => {
-      if (auth) setShowAdmin(true);
+    const timer = setTimeout(() => {
       setLoading(false);
-    });
+    }, 2000);
+    return () => clearTimeout(timer);
   }, []);
 
   if (loading) {
@@ -127,25 +119,13 @@ export default function AppNavigator() {
 
   return (
     <NavigationContainer>
-      {showAdmin ? (
-        <AdminStack onBackToHome={() => setShowAdmin(false)} />
-      ) : (
-        <>
-          <View style={styles.topBar}>
-            <View style={styles.topBarLeft}>
-              <Image source={require('../../assets/logo.jpeg')} style={styles.topBarLogo} />
-              <Text style={styles.topBarText}>Yokesh Auto Mobiles</Text>
-            </View>
-            <Text
-              style={styles.adminLink}
-              onPress={() => setShowAdmin(true)}
-            >
-              Admin
-            </Text>
-          </View>
-          <CustomerStack />
-        </>
-      )}
+      <View style={styles.topBar}>
+        <View style={styles.topBarLeft}>
+          <Image source={require('../../assets/logo.png')} style={styles.topBarLogo} />
+          <Text style={styles.topBarText}>Yokesh Auto Mobiles</Text>
+        </View>
+      </View>
+      <CustomerStack />
     </NavigationContainer>
   );
 }
@@ -155,19 +135,37 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: theme.colors.background
+    backgroundColor: theme.colors.primary
   },
-  loadingText: {
-    marginTop: theme.spacing.md,
-    fontSize: 16,
-    color: theme.colors.textSecondary
+  loadingContent: {
+    alignItems: 'center'
+  },
+  loadingLogo: {
+    width: 120,
+    height: 120,
+    borderRadius: 24,
+    marginBottom: theme.spacing.lg
+  },
+  loadingTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    marginBottom: theme.spacing.xs
+  },
+  loadingTagline: {
+    fontSize: 14,
+    color: 'rgba(255,255,255,0.8)',
+    marginBottom: theme.spacing.xl,
+    textAlign: 'center'
+  },
+  loadingSpinner: {
+    marginTop: theme.spacing.md
   },
   topBar: {
     backgroundColor: theme.colors.headerBg,
     padding: theme.spacing.md,
     paddingTop: 50,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center'
   },
   topBarLeft: {
@@ -185,9 +183,4 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold'
   },
-  adminLink: {
-    color: theme.colors.primary,
-    fontSize: 14,
-    fontWeight: '600'
-  }
 });
